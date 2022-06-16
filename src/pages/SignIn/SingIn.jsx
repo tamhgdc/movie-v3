@@ -5,15 +5,15 @@ function SingIn() {
     <div
       className="h-full pt-1 flex items-center"
       style={{
-        backgroundImage: `url("https://brokenpanda.net/wp-content/uploads/Blue-Wallpapers-2020.jpg")`,
-        height: '100vh',
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.6),transparent), url('https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?t=st=1653391077~exp=1653391677~hmac=ee6ab4f3dfb113885aacf419049eb07626f333591ae717856381c66424752264&w=740')`,
+        height: '92vh',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat'
       }}>
-      <div className=" w-full  mx-24 grid grid-cols-2 gap-16">
-        <div className="border rounded-3xl">sfsdf</div>
-        <div className="rounded-3xl py-10  px-20 bg-gray-700 shadow-xl shadow-white">
+      <div className=" mx-24 grid grid-cols-1 justify-center">
+        {/* <div className="border rounded-3xl">sfsdf</div> */}
+        <div className="rounded-xl py-10  px-20 bg-gray-700 shadow-xl shadow-white ">
           <p className="text-6xl text-center dark:text-white mb-10">Sign In</p>
           <form>
             <div className="mb-6">
@@ -26,7 +26,7 @@ function SingIn() {
                 type="email"
                 id="email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="name@flowbite.com"
+                placeholder="Your email"
                 required
               />
             </div>

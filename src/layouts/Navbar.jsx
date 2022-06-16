@@ -1,12 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
-import { HOME_ROUTE } from '../routes';
+import { HOME_ROUTE, TV_ROUTE } from '../routes';
 
 function Navbar() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-16 bg-gray-dark2 pt-2 sticky top-0 z-20">
+    <div className="h-12 bg-gray-dark2 py-0 sticky top-0 z-20">
       <div className="px-24 flex items-center justify-between">
         <div className="flex gap-5 items-center">
           <Link to={HOME_ROUTE}>
@@ -14,33 +14,33 @@ function Navbar() {
           </Link>
           {/* links list */}
           <ul className="text-white text-sm font-bold flex gap-3 items-center">
-            <li className="border-l-2 px-2 ">
-              <a
-                href="https://noome.com"
+            <li className=" px-2 ">
+              <Link
+                to={HOME_ROUTE}
                 className="hover:text-red-light ml-2 transition-all ease-in delay-50">
                 HOME
-              </a>
+              </Link>
             </li>
-            <li className="border-l-2 px-2">
-              <a
-                href="https://noome.com"
+            <li className="border-l px-2">
+              <Link
+                to={HOME_ROUTE}
                 className="hover:text-red-light ml-2 transition-all ease-in delay-50">
-                MOVIES
-              </a>
+                GENRES
+              </Link>
             </li>
-            <li className="border-l-2 px-2">
-              <a
-                href="https://noome.com"
+            <li className="border-l px-2">
+              <Link
+                to={TV_ROUTE}
                 className="hover:text-red-light ml-2 transition-all ease-in delay-50">
                 SHOWS
-              </a>
+              </Link>
             </li>
-            <li className="border-l-2 px-2">
-              <a
-                href="https://noome.com"
+            <li className="border-l px-2">
+              <Link
+                to={HOME_ROUTE}
                 className="hover:text-red-light ml-2 transition-all ease-in delay-50">
                 PAGES
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
