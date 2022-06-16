@@ -80,7 +80,7 @@ export default function Movie() {
               <h1 className="text-3xl font-semibold">Cast</h1>
               <span className="flex flex-wrap gap-x-1 font-semibold w-5/6">
                 {cred.cast.slice(0, 10).map((cr) => {
-                  return <h2 key={cr.id}>{cr.name},</h2>;
+                  return <h2 key={cr.id}>{cr.name || cr.original_name},</h2>;
                 })}
               </span>
             </div>
