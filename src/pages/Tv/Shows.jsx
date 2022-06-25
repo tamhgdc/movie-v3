@@ -1,51 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 // import info from '../popular.json';
-import { API_KEY, BASE_URL, PICTURE_URL } from '../../constants/constants';
+import { PICTURE_URL } from '../../constants/constants';
 import Button from '../../components/Button';
 import MovieCard from '../../components/MovieCard';
+import LeftArrow from '../../components/LeftArrow';
+import RightArrow from '../../components/RightArrow';
 import { TV_ROUTE } from '../../routes';
+import { fetchPopulars } from '../../context/slices/tv/popularSlice';
+import { fetchTopRated } from '../../context/slices/tv/topRatedSlice';
+import { fetchOnAir } from '../../context/slices/tv/onAirSlice';
+import { fetchOnAirToday } from '../../context/slices/tv/airingTodaySlice';
 
 export default function Shows() {
-  const [popular, setPopular] = useState();
-  const [upcoming, setUpcoming] = useState();
-  const [nowplaying, setNowplaying] = useState();
-  const [trending, setTrending] = useState();
+  const populars = useSelector((state) => state.tvPopular?.list?.results);
+  const topRateds = useSelector((state) => state.tvTopRated?.list?.results);
+  const onAirs = useSelector((state) => state.onAir?.list?.results);
+  const airingToday = useSelector((state) => state.airingToday?.list?.results);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(`${BASE_URL}/tv/popular?api_key=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => setPopular(data));
-    fetch(`${BASE_URL}/tv/upcoming?api_key=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => setUpcoming(data));
-    fetch(`${BASE_URL}/tv/on_the_air?api_key=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => setNowplaying(data));
-    fetch(`${BASE_URL}/trending/tv/week?api_key=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => setTrending(data));
+    dispatch(fetchPopulars());
+    dispatch(fetchTopRated());
+    dispatch(fetchOnAir());
+    dispatch(fetchOnAirToday());
   }, []);
-
-  // scroll
-  function wheeling(e) {
-    e.preventDefault();
-    // e.stopPropagation();
-
-    // const el = document.querySelector('#elem');
-    // el.scrollBy({
-    //   left: e.deltaY < 0 ? -30 : 30
-    // behavior: 'smooth'
-    // });
-  }
 
   return (
     <div className="bg-gray-dark2">
       <Carousel showThumbs={false} autoPlay={true} showStatus={false} infiniteLoop={true}>
-        {trending?.results?.map((i) => {
+        {airingToday?.map((i) => {
           return (
             <div
               key={i.id}
@@ -105,12 +94,10 @@ export default function Shows() {
           <Button text="Movies" css="px-3 py-1  bg-dark border-dark" />
           <Button text="Shows" css="px-3 py-1  bg-dark border-dark" />
         </div>
-        <div
-          className="flex overflow-x-scroll scroll  mb-14  scrollbar-hide before:content-['<'] before:absolute before:bg-dark2  before:bg-gradient-to-r before:from-gray-dark to-transparent before:h-96 before:w-8 before:flex before:items-center before:text-3xl before:text-white before:justify-center after:content-['>'] after:absolute after:bg-dar  after:bg-gradient-to-l after:from-gray-dark to-transparent after:h-96 after:w-8 after:flex after:items-center after:text-3xl after:text-white after:justify-center after:right-24 "
-          id="elem"
-          onWheel={(e) => wheeling(e)}>
+        <div className="flex overflow-x-scroll scroll  mb-14  scrollbar-hide " id="elem">
+          <LeftArrow />
           <div className="flex gap-3 ">
-            {trending?.results?.map((x) => {
+            {airingToday?.map((x) => {
               return (
                 <MovieCard
                   key={x.id}
@@ -121,24 +108,24 @@ export default function Shows() {
                   country={x.origin_country}
                   click={() => navigate(`${TV_ROUTE}/${x.id}`)}
                   id={x.id}
+                  media={x.media}
                 />
               );
             })}
           </div>
+          <RightArrow />
         </div>
       </div>
       {/* Popular Movies  */}
       <div className="mx-24  my-6 ">
         <div className="mb-5 flex flex-col gap-2">
-          <h1 className="text-4xl text-white">POPULAR MOVIES</h1>
+          <h1 className="text-4xl text-white">POPULAR SHOWS</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>
         </div>
-        <div
-          className="flex overflow-x-scroll scroll  mb-14  scrollbar-hide before:content-['<'] before:absolute before:bg-dark2  before:bg-gradient-to-r before:from-gray-dark to-transparent before:h-96 before:w-8 before:flex before:items-center before:text-3xl before:text-white before:justify-center after:content-['>'] after:absolute after:bg-dar  after:bg-gradient-to-l after:from-gray-dark to-transparent after:h-96 after:w-8 after:flex after:items-center after:text-3xl after:text-white after:justify-center after:right-24 "
-          id="elem"
-          onWheel={wheeling}>
+        <div className="flex overflow-x-scroll scroll  mb-14  scrollbar-hide " id="elem">
+          <LeftArrow />
           <div className="flex gap-3">
-            {popular?.results?.map((x) => {
+            {populars?.map((x) => {
               return (
                 <MovieCard
                   key={x.id}
@@ -148,24 +135,24 @@ export default function Shows() {
                   rate={x.vote_average}
                   country={x.origin_country}
                   click={() => navigate(`${TV_ROUTE}/${x.id}`)}
+                  media={x.media}
                 />
               );
             })}
           </div>
+          <RightArrow />
         </div>
       </div>
       {/* Trending Movies  */}
       <div className="mx-24  my-6 ">
         <div className="mb-5 flex flex-col gap-2">
-          <h1 className="text-4xl text-white">UPCOMING MOVIES</h1>
+          <h1 className="text-4xl text-white">ON AIR</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>
         </div>
-        <div
-          className="flex overflow-x-scroll scroll  mb-14  scrollbar-hide before:content-['<'] before:absolute before:bg-dark2  before:bg-gradient-to-r before:from-gray-dark to-transparent before:h-96 before:w-8 before:flex before:items-center before:text-3xl before:text-white before:justify-center after:content-['>'] after:absolute after:bg-dar  after:bg-gradient-to-l after:from-gray-dark to-transparent after:h-96 after:w-8 after:flex after:items-center after:text-3xl after:text-white after:justify-center after:right-24 "
-          id="elem"
-          onWheel={wheeling}>
+        <div className="flex min-w-80 overflow-x-scroll scroll  mb-14  scrollbar-hide " id="elem">
+          <LeftArrow />
           <div className="flex gap-3">
-            {upcoming?.results?.map((x) => {
+            {onAirs?.map((x) => {
               return (
                 <MovieCard
                   key={x.id}
@@ -175,24 +162,24 @@ export default function Shows() {
                   rate={x.vote_average}
                   country={x.origin_country}
                   click={() => navigate(`${TV_ROUTE}/${x.id}`)}
+                  media={x.media}
                 />
               );
             })}
           </div>
+          <RightArrow />
         </div>
       </div>
-      {/* Suggested For You Movies  */}
+      {/* TOP RATED For You Movies  */}
       <div className="mx-24  my-6 ">
         <div className="mb-5 flex flex-col gap-2">
           <h1 className="text-4xl text-white">TOP RATED</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>
         </div>
-        <div
-          className="flex overflow-x-scroll scroll  mb-14  scrollbar-hide before:content-['<'] before:absolute before:bg-dark2  before:bg-gradient-to-r before:from-gray-dark to-transparent before:h-96 before:w-8 before:flex before:items-center before:text-3xl before:text-white before:justify-center after:content-['>'] after:absolute after:bg-dar  after:bg-gradient-to-l after:from-gray-dark to-transparent after:h-96 after:w-8 after:flex after:items-center after:text-3xl after:text-white after:justify-center after:right-24 "
-          id="elem"
-          onWheel={wheeling}>
+        <div className="flex overflow-x-scroll scroll  mb-14  scrollbar-hide " id="elem">
+          <LeftArrow />
           <div className="flex gap-3">
-            {nowplaying?.results?.map((x) => {
+            {topRateds?.map((x) => {
               return (
                 <MovieCard
                   key={x.id}
@@ -202,10 +189,12 @@ export default function Shows() {
                   rate={x.vote_average}
                   country={x.origin_country}
                   click={() => navigate(`${TV_ROUTE}/${x.id}`)}
+                  media={x.media}
                 />
               );
             })}
           </div>
+          <RightArrow />
         </div>
       </div>
     </div>

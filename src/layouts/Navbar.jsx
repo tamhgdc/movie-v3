@@ -54,7 +54,7 @@ function Navbar() {
             <i className="ri-search-line ri-lg text-white"></i>
           </div>
           <button
-            className=" text-white border-red-light hover:border-white hover:bg-opacity-80  bg-red-light ml-2 px-4 py-1 border font-bold"
+            className="min-w-52 text-white border-red-light hover:border-white hover:bg-opacity-80  bg-red-light ml-2 px-4 py-1 border font-bold"
             onClick={() => navigate('/signin')}>
             SIGN IN
           </button>

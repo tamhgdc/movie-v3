@@ -30,7 +30,7 @@ export default function Movie() {
       {/* video */}
       <div className="h-screen">
         <iframe
-          src={`https://www.youtube.com/embed/${videos?.results[1]?.key}?autoplay=1`}
+          src={`https://www.youtube.com/embed/${videos?.results[0]?.key}?autoplay=1`}
           frameBorder="0"
           allowFullScreen
           className=" w-full px-24"

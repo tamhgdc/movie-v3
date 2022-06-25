@@ -21,7 +21,7 @@ export default function SingleTv() {
     fetch(`${BASE_URL}/tv/${params.tvId}?api_key=${API_KEY}`)
       .then((res) => res.json())
       .then((data) => setDetails(data));
-    fetch(`${BASE_URL}/${'tv' || 'tv'}/${params.tvId}/similar?api_key=${API_KEY}`)
+    fetch(`${BASE_URL}/tv/${params.tvId}/similar?api_key=${API_KEY}`)
       .then((res) => res.json())
       .then((data) => setSimilar(data));
   }, [params.tvId]);
@@ -31,7 +31,7 @@ export default function SingleTv() {
       {/* video */}
       <div className="h-screen">
         <iframe
-          src={`https://www.youtube.com/embed/${videos?.results[1]?.key}?autoplay=1`}
+          src={`https://www.youtube.com/embed/${videos?.results[0]?.key}?autoplay=1`}
           frameBorder="0"
           allowFullScreen
           className=" w-full px-24"
