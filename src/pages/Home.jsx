@@ -21,7 +21,12 @@ function Home() {
 
   return (
     <div className="bg-gray-dark2">
-      <Carousel showThumbs={false} autoPlay={true} showStatus={false} infiniteLoop={true}>
+      <Carousel
+        showThumbs={false}
+        autoPlay={true}
+        showStatus={false}
+        infiniteLoop={true}
+        showIndicators={false}>
         {now?.map((i) => {
           return (
             <div
@@ -60,18 +65,18 @@ function Home() {
                 <p className="hidden md:block lg:block self-start text-left">
                   {i.overview.slice(0, 156)}...
                 </p>
-                <p className="flex gap-4 mt-6 lg:w-96  w-80">
+                <p className="flex gap-4 mt-6 min-w-96 ">
                   {' '}
                   <Button
                     text="Play Now"
                     icon="play-circle-fill"
-                    css="lg:px-5 px-2 py-2 lg:w-52 md:w-28 w-24 text-sm"
+                    css="lg:px-5 px-2 py-2 lg:w-52 md:w-28 w-26 text-sm"
                     click={() => navigate(`${MOVIE_ROUTE}/${i.id}`)}
                   />
                   <Button
                     text="My List"
                     icon="add-circle-fill"
-                    css="lg:px-5 px-2 py-2 lg:w-52 md:w-28 w-24 text-sm"
+                    css="lg:px-5 px-2 py-2 lg:w-52 md:w-28 w-26 text-sm"
                     onClick={() => {}}
                   />
                 </p>
