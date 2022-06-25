@@ -29,15 +29,17 @@ function Home() {
               style={{
                 backgroundImage: `linear-gradient(to right,rgba(0, 0, 0, 0.99),
            transparent),url(${PICTURE_URL}${i.backdrop_path}) `,
-                height: '90vh',
+                // height: '90vh',
                 backgroundPosition: 'center top',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat'
               }}
-              className=" h-full sm:px-12 lg:px-24 md:px-24 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end ">
+              className=" lg:h-full md:h-96 sm:px-10 lg:px-24 md:px-12 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end ">
               {/* details */}
               <div className="text-white order-1 lg:order-none  self-center p-2 flex flex-col gap-1 bg-gray-800 bg-opacity-0">
-                <h1 className="text-5xl self-start">{i.name || i.original_name || i.title}</h1>
+                <h1 className="text-xl lg:text-5xl md:text-2xl  self-start">
+                  {i.name || i.original_name || i.title}
+                </h1>
                 <p className="flex gap-2 items-center self-start mt-5">
                   <span className="text-yellow-400 fill-current">
                     <i className="ri-star-s-fill"></i>
@@ -58,18 +60,18 @@ function Home() {
                 <p className="hidden md:block lg:block self-start text-left">
                   {i.overview.slice(0, 156)}...
                 </p>
-                <p className="flex gap-4 mt-6 min-w-96 ">
+                <p className="flex gap-4 mt-6 lg:w-96  w-80">
                   {' '}
                   <Button
                     text="Play Now"
                     icon="play-circle-fill"
-                    css="px-5 py-2 min-w-52"
+                    css="lg:px-5 px-2 py-2 lg:w-52 md:w-28 w-24 text-sm"
                     click={() => navigate(`${MOVIE_ROUTE}/${i.id}`)}
                   />
                   <Button
                     text="My List"
                     icon="add-circle-fill"
-                    css="px-5 py-2 min-w-52"
+                    css="lg:px-5 px-2 py-2 lg:w-52 md:w-28 w-24 text-sm"
                     onClick={() => {}}
                   />
                 </p>
@@ -80,7 +82,7 @@ function Home() {
         })}
       </Carousel>
       {/* Featured Movies Shows */}
-      <div className="mx-24  my-6 ">
+      <div className="lg:mx-24 md:mx-12 sm:mx-2  my-6 ">
         <div className=" flex gap-5 mb-5">
           <Button text="Featured" css="px-3 py-1 " />
           <Button text="Movies" css="px-3 py-1  bg-dark border-dark" />
@@ -111,7 +113,7 @@ function Home() {
         </div>
       </div>
       {/* Popular Movies  */}
-      <div className="mx-24  my-6 ">
+      <div className="lg:mx-24 md:mx-12 sm:mx-2  my-6 ">
         <div className="mb-5 flex flex-col gap-2">
           <h1 className="text-4xl text-white">POPULAR MOVIES</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>
@@ -137,7 +139,7 @@ function Home() {
         </div>
       </div>
       {/* upcomings Movies  */}
-      <div className="mx-24  my-6 ">
+      <div className="lg:mx-24 md:mx-12 sm:mx-2  my-6 ">
         <div className="mb-5 flex flex-col gap-2">
           <h1 className="text-4xl text-white">UPCOMING MOVIES</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>
@@ -163,7 +165,7 @@ function Home() {
         </div>
       </div>
       {/* Suggested For You Movies  */}
-      <div className="mx-24  my-6 ">
+      <div className="lg:mx-24 md:mx-12 sm:mx-2 my-6 ">
         <div className="mb-5 flex flex-col gap-2">
           <h1 className="text-4xl text-white">TOP RATED</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>

@@ -46,7 +46,7 @@ export default function Shows() {
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat'
               }}
-              className=" h-full  px-24 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end">
+              className=" h-full  lg:px-24 md:px-24 sm:px-1 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end">
               {/* details */}
               <div className="text-white order-1 lg:order-none  self-center p-2 flex flex-col gap-1 bg-gray-800 bg-opacity-0">
                 <h1 className="text-5xl self-start">{i.name || i.original_name || i.title}</h1>

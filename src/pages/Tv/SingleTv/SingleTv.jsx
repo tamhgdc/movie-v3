@@ -40,7 +40,7 @@ export default function SingleTv() {
         />
       </div>
       {/* End video */}
-      <div className=" px-24 py-10 flex items-center gap-x-10 ">
+      <div className="lg:px-24 md:px-24 sm:px-1 py-10 flex items-center gap-x-10 ">
         <div className="h-96 py-2">
           <img src={`${PICTURE_URL}${details?.poster_path}`} className="h-full w-72" />
         </div>
