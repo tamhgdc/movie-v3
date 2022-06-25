@@ -34,12 +34,11 @@ function Home() {
               style={{
                 backgroundImage: `linear-gradient(to right,rgba(0, 0, 0, 0.99),
            transparent),url(${PICTURE_URL}${i.backdrop_path}) `,
-                // height: '90vh',
                 backgroundPosition: 'center top',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat'
               }}
-              className=" lg:h-full md:h-96 sm:px-10 lg:px-24 md:px-12 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end ">
+              className=" lg:h-full md:h-80 sm:h-80 h-80 sm:px-10 lg:px-24 md:px-12 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end ">
               {/* details */}
               <div className="text-white order-1 lg:order-none  self-center p-2 flex flex-col gap-1 bg-gray-800 bg-opacity-0">
                 <h1 className="text-xl lg:text-5xl md:text-2xl  self-start">

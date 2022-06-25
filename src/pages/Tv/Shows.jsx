@@ -88,7 +88,7 @@ export default function Shows() {
         })}
       </Carousel>
       {/* Featured Movies Shows */}
-      <div className="mx-24  my-6 ">
+      <div className="lg:mx-24 md:mx-12 mx-3  my-6 ">
         <div className=" flex gap-5 mb-5">
           <Button text="Featured" css="px-3 py-1 " />
           <Button text="Movies" css="px-3 py-1  bg-dark border-dark" />
@@ -117,7 +117,7 @@ export default function Shows() {
         </div>
       </div>
       {/* Popular Movies  */}
-      <div className="mx-24  my-6 ">
+      <div className="lg:mx-24 md:mx-12 mx-3  my-6 ">
         <div className="mb-5 flex flex-col gap-2">
           <h1 className="text-4xl text-white">POPULAR SHOWS</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>
@@ -144,7 +144,7 @@ export default function Shows() {
         </div>
       </div>
       {/* Trending Movies  */}
-      <div className="mx-24  my-6 ">
+      <div className="lg:mx-24 md:mx-12 mx-3  my-6 ">
         <div className="mb-5 flex flex-col gap-2">
           <h1 className="text-4xl text-white">ON AIR</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>
@@ -171,7 +171,7 @@ export default function Shows() {
         </div>
       </div>
       {/* TOP RATED For You Movies  */}
-      <div className="mx-24  my-6 ">
+      <div className="lg:mx-24 md:mx-12 mx-3 my-6 ">
         <div className="mb-5 flex flex-col gap-2">
           <h1 className="text-4xl text-white">TOP RATED</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>

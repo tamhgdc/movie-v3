@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../../../components/Button';
 import MovieCard from '../../../components/MovieCard';
+import LeftArrow from '../../../components/LeftArrow';
+import RightArrow from '../../../components/RightArrow';
 import { API_KEY, BASE_URL, PICTURE_URL } from '../../../constants/constants';
 
 import cred from '../../../credits.json';
@@ -29,47 +31,49 @@ export default function SingleTv() {
   return (
     <div className="text-white">
       {/* video */}
-      <div className="h-screen">
+      <div className="lg:h-screen md:h-96 sm:h-80 h-60">
         <iframe
           src={`https://www.youtube.com/embed/${videos?.results[0]?.key}?autoplay=1`}
           frameBorder="0"
           allowFullScreen
-          className=" w-full px-24"
+          className=" w-full lg:px-24 md:px-16 sm:px-2 lg:h-screen md:h-96 sm:h-72 h-60"
           poster={`${PICTURE_URL}/x6FsYvt33846IQnDSFxla9j0RX8.jpg`}
-          style={{ height: '90vh' }}
         />
       </div>
       {/* End video */}
-      <div className="lg:px-24 md:px-24 sm:px-1 py-10 flex items-center gap-x-10 ">
-        <div className="h-96 py-2">
-          <img src={`${PICTURE_URL}${details?.poster_path}`} className="h-full w-72" />
+      <div className="lg:px-24 md:px-16 sm:px-4 px-3 py-10 flex flex-col lg:items-center md:items-start items-center sm:items-center gap-x-10 lg:flex-row sm:flex-col md:flex-row ">
+        <div className="lg:h-96 h-80 sm:h-90 w-full py-2 sm:hidden lg:block md:block">
+          <img
+            src={`${PICTURE_URL}${details?.poster_path}`}
+            className="h-80 lg:w-72 md:w-72 w-full object-cover object-top"
+          />
         </div>
-        <div className="w-full flex flex-col justify-between h-full">
-          <h1 className="text-5xl">
+        <div className="w-full flex flex-col lg:flex-row md:flex-col sm:flex-col justify-between h-full">
+          <h1 className="text-xl lg:text-5xl md:text-2xl mt-5">
             {details?.original_name || details?.name} ({details?.last_air_date.slice(0, 4)})
           </h1>
-          <div className="flex flex-wrap justify-between w-full my-5">
-            <span className="flex items-center gap-1 text-gray text-lg">
-              <i className="ri-user-fill"></i>
-              {details?.adult ? '18+' : '12+'}
-            </span>
-
-            <span className="flex items-center gap-1 text-gray text-lg">
+          <div className="flex flex-wrap justify-between w-full my-5 flex-col lg:flex-row">
+            <span className="flex items-center gap-1 text-gray lg:text-lg text-sm">
+              <span className="flex items-center gap-1 text-gray text-lg">
+                <i className="ri-user-fill"></i>
+                {details?.adult ? '18+' : '12+'}
+              </span>
               <i className="ri-user-smile-line"></i>
               {details?.genres?.map((g) => g.name).join(', ')} 💠
-              <span className="flex items-center gap-1 text-gray text-lg">
+              <span className="flex items-center gap-1 text-gray lg:text-lg text-sm">
                 {Math.floor(details?.episode_run_time[0] / 60)}hr{' '}
                 {details?.episode_run_time[0] % 60}
                 min
               </span>
             </span>
-            <span className="flex items-center gap-1 text-gray text-lg">
+            <span className="flex items-center gap-1 text-gray lg:text-lg text-sm">
               <i className="ri-earth-line"></i>
               {details?.production_countries?.map((c) => c.name).join(', ')}
             </span>
           </div>
           <p className="w-4/5">{details?.overview}</p>
-          <div className="grid grid-cols-3 mt-5">
+          {/* casts and crews */}
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1  mt-5">
             <div className="">
               <h1 className="text-3xl font-semibold">Director</h1>
               <h2 className="font-semibold">
@@ -101,12 +105,13 @@ export default function SingleTv() {
         </div>
       </div>
       {/* related movies */}
-      <div className="mx-24  my-6 mt-10">
+      <div className="lg:mx-24 md:mx-16 sm:mx-2 mx-3 my-6 mt-10">
         <div className="mb-5 flex flex-col gap-2">
           <h1 className="text-4xl text-white">RELATED</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>
         </div>
         <div className="flex overflow-x-scroll  mb-14  scrollbar-hide">
+          <LeftArrow />
           <div className="flex gap-3">
             {similar?.results?.map((x) => {
               return (
@@ -122,6 +127,7 @@ export default function SingleTv() {
               );
             })}
           </div>
+          <RightArrow />
         </div>
       </div>
     </div>
