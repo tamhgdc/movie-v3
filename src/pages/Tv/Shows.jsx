@@ -33,7 +33,12 @@ export default function Shows() {
 
   return (
     <div className="bg-gray-dark2">
-      <Carousel showThumbs={false} autoPlay={true} showStatus={false} infiniteLoop={true}>
+      <Carousel
+        showThumbs={false}
+        autoPlay={true}
+        showStatus={false}
+        infiniteLoop={true}
+        showIndicators={false}>
         {airingToday?.map((i) => {
           return (
             <div
@@ -41,12 +46,11 @@ export default function Shows() {
               style={{
                 backgroundImage: `linear-gradient(to right,rgba(0, 0, 0, 0.99),
            transparent),url(${PICTURE_URL}${i.backdrop_path}) `,
-                height: '90vh',
                 backgroundPosition: 'center top',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat'
               }}
-              className=" h-full  lg:px-24 md:px-24 sm:px-1 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end">
+              className=" lg:h-full md:h-80 sm:h-80 h-80 sm:px-10 lg:px-24 md:px-12 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end">
               {/* details */}
               <div className="text-white order-1 lg:order-none  self-center p-2 flex flex-col gap-1 bg-gray-800 bg-opacity-0">
                 <h1 className="text-5xl self-start">{i.name || i.original_name || i.title}</h1>
@@ -71,15 +75,19 @@ export default function Shows() {
                 <p className="hidden md:block lg:block self-start text-left">
                   {i.overview.slice(0, 156)}...
                 </p>
-                <p className="flex gap-4 mt-6">
+                <p className="flex gap-4 mt-6 min-w-96">
                   {' '}
                   <Button
                     text="Play Now"
                     icon="play-circle-fill"
-                    css="px-5 py-2"
+                    css="lg:px-5 px-2 py-2 lg:w-52 md:w-28 w-26 text-sm"
                     click={() => navigate(`${TV_ROUTE}/${i.id}`)}
                   />
-                  <Button text="My List" icon="add-circle-fill" css="px-5 py-2" />
+                  <Button
+                    text="My List"
+                    icon="add-circle-fill"
+                    css="lg:px-5 px-2 py-2 lg:w-52 md:w-28 w-26 text-sm"
+                  />
                 </p>
               </div>
               <div />
