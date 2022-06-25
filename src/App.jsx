@@ -26,7 +26,7 @@ function App() {
     dispatch(fetchTrendings());
     dispatch(fetchTopRated());
     dispatch(fetchNowPlaying());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="bg-gray-dark2">

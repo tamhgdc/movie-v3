@@ -29,7 +29,7 @@ export default function Shows() {
     dispatch(fetchTopRated());
     dispatch(fetchOnAir());
     dispatch(fetchOnAirToday());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="bg-gray-dark2">
