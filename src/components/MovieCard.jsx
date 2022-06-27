@@ -15,11 +15,9 @@ function MovieCard({ image, name, date, country, rate, click, media }) {
           src={PICTURE_URL + image}
           alt={name}
           effect="blur"
-//           visibleByDefault={true}
           delayMethod="debounce"
           placeholderSrc={puls}
         />
-        {/* <img src={PICTURE_URL + image} alt={name} className="h-full " /> */}
       </div>
       <h1 className="text-white font-semibold truncate uppercase ml-2">{name}</h1>
       <p className="text-gray flex justify-between font-semibold ml-2">
