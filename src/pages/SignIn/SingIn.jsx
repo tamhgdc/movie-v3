@@ -11,7 +11,7 @@ function SingIn() {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat'
       }}>
-      <div className=" mx-24 grid grid-cols-1 justify-center">
+      <div className=" mx-12 grid grid-cols-1 justify-center">
         {/* <div className="border rounded-3xl">sfsdf</div> */}
         <div className="rounded-xl py-10  px-20 bg-gray-700 shadow-xl shadow-white ">
           <p className="text-6xl text-center dark:text-white mb-10">Sign In</p>
