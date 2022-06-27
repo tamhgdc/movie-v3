@@ -50,7 +50,7 @@ export default function Shows() {
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat'
               }}
-              className=" lg:h-full md:h-80 sm:h-80 h-80 sm:px-10 lg:px-24 md:px-12 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end">
+              className=" lg:h-full md:h-80 sm:h-80 h-80 sm:px-10 lg:px-12 md:px-8 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end">
               {/* details */}
               <div className="text-white order-1 lg:order-none  self-center p-2 flex flex-col gap-1 bg-gray-800 bg-opacity-0">
                 <h1 className="text-3xl self-start">{i.name || i.original_name || i.title}</h1>
@@ -96,7 +96,7 @@ export default function Shows() {
         })}
       </Carousel>
       {/* Featured Movies Shows */}
-      <div className="lg:mx-24 md:mx-12 mx-3  my-6 ">
+      <div className="lg:mx-12 md:mx-8 mx-3  my-6 ">
         <div className=" flex gap-5 mb-5">
           <Button text="Featured" css="px-3 py-1 " />
           <Button text="Movies" css="px-3 py-1  bg-dark border-dark" />
@@ -125,7 +125,7 @@ export default function Shows() {
         </div>
       </div>
       {/* Popular Movies  */}
-      <div className="lg:mx-24 md:mx-12 mx-3  my-6 ">
+      <div className="lg:mx-12 md:mx-8 mx-3  my-6 ">
         <div className="mb-5 flex flex-col gap-2">
           <h1 className="text-4xl text-white">POPULAR SHOWS</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>
@@ -152,7 +152,7 @@ export default function Shows() {
         </div>
       </div>
       {/* Trending Movies  */}
-      <div className="lg:mx-24 md:mx-12 mx-3  my-6 ">
+      <div className="lg:mx-12 md:mx-8 mx-3  my-6 ">
         <div className="mb-5 flex flex-col gap-2">
           <h1 className="text-4xl text-white">ON AIR</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>
@@ -179,7 +179,7 @@ export default function Shows() {
         </div>
       </div>
       {/* TOP RATED For You Movies  */}
-      <div className="lg:mx-24 md:mx-12 mx-3 my-6 ">
+      <div className="lg:mx-12 md:mx-8 mx-3 my-6 ">
         <div className="mb-5 flex flex-col gap-2">
           <h1 className="text-4xl text-white">TOP RATED</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>

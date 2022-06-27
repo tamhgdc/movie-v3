@@ -36,12 +36,12 @@ export default function SingleTv() {
           src={`https://www.youtube.com/embed/${videos?.results[0]?.key}?autoplay=1`}
           frameBorder="0"
           allowFullScreen
-          className=" w-full lg:px-24 md:px-16 sm:px-2 lg:h-[90vh] md:h-96 sm:h-72 h-60"
+          className=" w-full lg:px-12 md:px-8 sm:px-2 lg:h-[90vh] md:h-96 sm:h-72 h-60"
           poster={`${PICTURE_URL}/x6FsYvt33846IQnDSFxla9j0RX8.jpg`}
         />
       </div>
       {/* End video */}
-      <div className="lg:px-24 md:px-16 sm:px-4 px-3 py-10 flex flex-col lg:items-start md:items-start items-center sm:items-center gap-x-10 lg:flex-row sm:flex-col md:flex-row ">
+      <div className="lg:px-12 md:px-8 sm:px-4 px-3 py-10 flex flex-col lg:items-start md:items-start items-center sm:items-center gap-x-10 lg:flex-row sm:flex-col md:flex-row ">
         <div className="lg:h-96 h-80 sm:h-90  py-2 sm:hidden lg:block md:block">
           <img
             src={`${PICTURE_URL}${details?.poster_path}`}
@@ -105,7 +105,7 @@ export default function SingleTv() {
         </div>
       </div>
       {/* related movies */}
-      <div className="lg:mx-24 md:mx-16 sm:mx-2 mx-3 my-6 mt-10">
+      <div className="lg:mx-12 md:mx-8 sm:mx-2 mx-3 my-6 mt-10">
         <div className="mb-5 flex flex-col gap-2">
           <h1 className="text-4xl text-white">RELATED</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>

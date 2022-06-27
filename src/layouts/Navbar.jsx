@@ -7,7 +7,7 @@ function Navbar() {
 
   return (
     <div className="h-14 bg-gray-dark2 py-0 sticky top-0 z-20">
-      <div className="lg:px-24 md:px-12 px-3 py-2 flex items-center justify-between ">
+      <div className="lg:px-12 md:px-8 px-3 py-2 flex items-center justify-between ">
         <div className="flex gap-5 items-center">
           <Link to={HOME_ROUTE}>
             <img

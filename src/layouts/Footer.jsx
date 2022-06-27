@@ -3,7 +3,7 @@ import React from 'react';
 function Footer() {
   return (
     <div className="bg-gray-dark lg:pt-16 md:pt-10 sm:pt-5 pt-5 flex lg:flex-row md:flex-row sm:flex-col flex-col pb-10">
-      <div className="w-96 bg-gray-dark text-white flex justify-end items-center lg:px-24 md:px-12 px-3">
+      <div className="w-96 bg-gray-dark text-white flex justify-end items-center lg:px-12 md:px-8 px-3">
         <div>
           <h1 className="text-3xl text-red-light font-bold">NETFLIX-CLONE</h1>
           <p className="text-md text-gray mt-2">

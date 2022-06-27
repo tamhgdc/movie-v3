@@ -104,7 +104,7 @@ export default function Movie() {
         </div>
       </div>
       {/* related movies */}
-      <div className="lg:mx-24 md:mx-16 sm:mx-2 mx-3 my-6 mt-10">
+      <div className="lg:mx-12 md:mx-8 sm:mx-2 mx-3 my-6 mt-10">
         <div className="mb-5 flex flex-col gap-2">
           <h1 className="text-4xl text-white">RELATED</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>
