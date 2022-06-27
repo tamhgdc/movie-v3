@@ -53,7 +53,7 @@ export default function Shows() {
               className=" lg:h-full md:h-80 sm:h-80 h-80 sm:px-10 lg:px-24 md:px-12 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end">
               {/* details */}
               <div className="text-white order-1 lg:order-none  self-center p-2 flex flex-col gap-1 bg-gray-800 bg-opacity-0">
-                <h1 className="text-5xl self-start">{i.name || i.original_name || i.title}</h1>
+                <h1 className="text-3xl self-start">{i.name || i.original_name || i.title}</h1>
                 <p className="flex gap-2 items-center self-start mt-5">
                   <span className="text-yellow-400 fill-current">
                     <i className="ri-star-s-fill"></i>

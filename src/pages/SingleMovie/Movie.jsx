@@ -35,20 +35,20 @@ export default function Movie() {
           src={`https://www.youtube.com/embed/${videos?.results[0]?.key}?autoplay=1`}
           frameBorder="0"
           allowFullScreen
-          className=" w-full lg:px-24 md:px-16 sm:px-2 lg:h-screen md:h-96 sm:h-72 h-60"
+          className=" w-full lg:px-24 md:px-16 sm:px-2 lg:h-[90vh] md:h-96 sm:h-72 h-60"
           poster={`${PICTURE_URL}/x6FsYvt33846IQnDSFxla9j0RX8.jpg`}
         />
       </div>
       {/* End video */}
-      <div className="lg:px-24 md:px-16 sm:px-4 px-3 py-10 flex flex-col lg:items-center md:items-start items-center sm:items-center gap-x-10 lg:flex-row sm:flex-col md:flex-row">
-        <div className="lg:h-96 h-80 sm:h-90 w-full py-2 sm:hidden lg:block md:block">
+      <div className="lg:px-24 md:px-16 sm:px-4 px-3 py-10 flex flex-col lg:items-start md:items-start items-center sm:items-center gap-x-10 lg:flex-row sm:flex-col md:flex-row">
+        <div className="lg:h-96 h-80 sm:h-90 py-2 sm:hidden lg:block md:block">
           <img
             src={`${PICTURE_URL}${details?.poster_path}`}
             className="h-80 lg:w-72 md:w-72 w-full object-cover object-top"
           />
         </div>
-        <div className="w-full flex flex-col lg:flex-row md:flex-col sm:flex-col justify-between h-full">
-          <h1 className="text-xl lg:text-5xl md:text-2xl mt-5">
+        <div className="w-full flex flex-col lg:flex-col md:flex-col sm:flex-col justify-between h-full">
+          <h1 className="text-xl lg:text-4xl md:text-2xl ">
             {details?.original_title} ({details?.release_date.slice(0, 4)})
           </h1>
           <div className="flex flex-wrap justify-between w-full my-5 flex-col lg:flex-row">

@@ -1,6 +1,6 @@
 import { Carousel } from 'react-responsive-carousel';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useQuery } from '@apollo/client';
 
 // import info from '../popular.json';
 import { PICTURE_URL } from '../constants/constants';
@@ -8,26 +8,64 @@ import Button from '../components/Button';
 import MovieCard from '../components/MovieCard';
 import RightArrow from '../components/RightArrow';
 import LeftArrow from '../components/LeftArrow';
+import Container from '../components/Container';
+
 import { MOVIE_ROUTE, TV_ROUTE } from '../routes';
+
+// gql
+import {
+  getNowPlayingMovies,
+  getTopRatedMovies,
+  getUpcomingMovies,
+  getTrendingMovies,
+  getPopularMovies
+} from '../gql/queries.js';
 
 function Home() {
   const navigate = useNavigate();
 
-  const populars = useSelector((state) => state.popular?.list?.results);
-  const upcomings = useSelector((state) => state.upcoming?.list?.results);
-  const trendings = useSelector((state) => state.trending?.list?.results);
-  const topRated = useSelector((state) => state.topRated?.list?.results);
-  const now = useSelector((state) => state.now?.list?.results);
+  // now playing movie
+  const {
+    loading: nowLoading,
+    error: nowError,
+    data: nowData
+  } = useQuery(getNowPlayingMovies('/movie/now_playing?api_key='));
+  // upcoming movies
+  const {
+    data: upcomingData
+    // error: upError,
+    // loading: upLoading
+  } = useQuery(getUpcomingMovies('/movie/upcoming?api_key='));
+  // topRated movies
+  const {
+    // loading: topLoading,
+    // error: topError,
+    data: topData
+  } = useQuery(getTopRatedMovies('/movie/top_rated?api_key='));
+  // popular movies
+  const {
+    // loading: popLoading,
+    // error: popError,
+    data: popData
+  } = useQuery(getPopularMovies('/movie/popular?api_key='));
+  // popular movies
+  const {
+    // loading: trendingLoading,
+    // error: trendingError,
+    data: trendingData
+  } = useQuery(getTrendingMovies('/trending/all/week?api_key='));
 
   return (
     <div className="bg-gray-dark2">
+      {nowLoading && <h1 className="text-5xl text-white">{nowLoading}</h1>}
+      {nowError && <h1 className="text-5xl text-white ">{nowError}</h1>}
       <Carousel
         showThumbs={false}
         autoPlay={true}
         showStatus={false}
         infiniteLoop={true}
         showIndicators={false}>
-        {now?.map((i) => {
+        {nowData?.now_playing?.results?.map((i) => {
           return (
             <div
               key={i.id}
@@ -38,22 +76,28 @@ function Home() {
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat'
               }}
-              className=" lg:h-full md:h-80 sm:h-80 h-80 sm:px-10 lg:px-24 md:px-12 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end ">
+              className="xl:h-[80vh] lg:h-full md:h-80 sm:h-80  sm:px-10 lg:px-24 md:px-12 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end ">
               {/* details */}
-              <div className="text-white order-1 lg:order-none  self-center p-2 flex flex-col gap-1 bg-gray-800 bg-opacity-0">
-                <h1 className="text-xl lg:text-5xl md:text-2xl  self-start">
+              <div className="text-white order-1 lg:order-none  p-2 flex flex-col gap-1  ">
+                <h1 className="text-xl lg:text-3xl md:text-2xl capitalize w-full  text-left">
                   {i.name || i.original_name || i.title}
                 </h1>
                 <p className="flex gap-2 items-center self-start mt-5">
                   <span className="text-yellow-400 fill-current">
-                    <i className="ri-star-s-fill"></i>
-                    <i className="ri-star-s-fill"></i>
-                    <i className="ri-star-s-fill"></i>
-                    <i className="ri-star-s-line"></i>
-                  </span>{' '}
-                  <span>{i.first_air_date?.slice(0, 4)}</span>
-                  <span className="border px-1 py-0 text-sm font-bold">T</span>
-                  {i.origin_country?.map((o) => {
+                    {Array.from({ length: parseInt(i.vote_average / 2) }, (_, i) => i + 1).map(
+                      (r) => {
+                        return <i key={r} className="ri-star-s-fill text-yellow"></i>;
+                      }
+                    )}
+                  </span>
+                  <span className="px-1 py-0 text-md">
+                    {i.first_air_date?.slice(0, 4) || i.release_date?.slice(0, 4)}
+                  </span>
+                  <span className="border px-1 py-0 text-xs ">{i.adult ? '18+' : '12+'}</span>
+                  <span className="border px-1 py-0 text-xs ">
+                    {i.original_language?.toUpperCase()}
+                  </span>
+                  {i.original_country?.map((o) => {
                     return (
                       <span key={o} className="border px-1 py-0 text-sm font-bold">
                         {o}
@@ -92,15 +136,15 @@ function Home() {
           <Button text="Movies" css="px-3 py-1  bg-dark border-dark" />
           <Button text="Shows" css="px-3 py-1  bg-dark border-dark" />
         </div>
-        <div className="flex overflow-x-scroll   mb-14  scrollbar-hide relative " id="elem">
+        <div className="flex overflow-x-scroll   mb-14  scrollbar-hide  " id="elem">
           <LeftArrow />
           <div className="flex gap-3 ">
-            {trendings?.map((x) => {
+            {trendingData?.trending?.results?.map((x) => {
               return (
                 <MovieCard
                   key={x.id}
                   name={x.name || x.original_title}
-                  date={x.first_air_date}
+                  date={x.first_air_date || x.release_date}
                   image={x.poster_path}
                   rate={x.vote_average}
                   country={x.original_country || x.original_language.toUpperCase()}
@@ -122,15 +166,15 @@ function Home() {
           <h1 className="text-4xl text-white">POPULAR MOVIES</h1>
           <div className="border-b-4 border-b-red-light w-20"></div>
         </div>
-        <div className="flex overflow-x-scroll scroll  mb-14  scrollbar-hide  " id="elem">
+        <Container >
           <LeftArrow />
           <div className="flex gap-3">
-            {populars?.map((x) => {
+            {popData?.popular?.results?.map((x) => {
               return (
                 <MovieCard
                   key={x.id}
                   name={x.name || x.original_title}
-                  date={x.first_air_date}
+                  date={x.first_air_date || x.release_date}
                   image={x.poster_path}
                   rate={x.vote_average}
                   country={x.original_country || x.original_language.toUpperCase()}
@@ -140,7 +184,26 @@ function Home() {
             })}
           </div>
           <RightArrow />
-        </div>
+        </Container>
+        {/* <div className="flex overflow-x-scroll scroll  mb-14  scrollbar-hide  " id="elem">
+          <LeftArrow />
+          <div className="flex gap-3">
+            {popData?.popular?.results?.map((x) => {
+              return (
+                <MovieCard
+                  key={x.id}
+                  name={x.name || x.original_title}
+                  date={x.first_air_date || x.release_date}
+                  image={x.poster_path}
+                  rate={x.vote_average}
+                  country={x.original_country || x.original_language.toUpperCase()}
+                  click={() => navigate(`${MOVIE_ROUTE}/${x.id}`)}
+                />
+              );
+            })}
+          </div>
+          <RightArrow />
+        </div> */}
       </div>
       {/* upcomings Movies  */}
       <div className="lg:mx-24 md:mx-12 sm:mx-2  my-6 ">
@@ -151,12 +214,12 @@ function Home() {
         <div className="flex overflow-x-scroll scroll  mb-14  scrollbar-hide  " id="elem">
           <LeftArrow />
           <div className="flex gap-3">
-            {upcomings?.map((x) => {
+            {upcomingData?.upcoming.results?.map((x) => {
               return (
                 <MovieCard
                   key={x.id}
                   name={x.name || x.original_title}
-                  date={x.first_air_date}
+                  date={x.first_air_date || x.release_date}
                   image={x.poster_path}
                   rate={x.vote_average}
                   country={x.original_country || x.original_language.toUpperCase()}
@@ -177,15 +240,15 @@ function Home() {
         <div className="flex overflow-x-scroll scroll  mb-14  scrollbar-hide  " id="elem">
           <LeftArrow />
           <div className="flex gap-3">
-            {topRated?.map((x) => {
+            {topData?.top_rated?.results?.map((x) => {
               return (
                 <MovieCard
                   key={x.id}
                   name={x.name || x.original_title}
-                  date={x.first_air_date}
+                  date={x.first_air_date || x.release_date}
                   image={x.poster_path}
                   rate={x.vote_average}
-                  country={x.original_country || x.original_language.toUpperCase()}
+                  country={x.original_language.toUpperCase() || x.original_country}
                   click={() => navigate(`${MOVIE_ROUTE}/${x.id}`)}
                 />
               );
