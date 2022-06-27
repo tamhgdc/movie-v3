@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Button from '../../components/Button';
-import MovieCard from '../../components/MovieCard';
-import LeftArrow from '../../components/LeftArrow';
-import RightArrow from '../../components/RightArrow';
+import MainContainer from '../../components/MainContainer';
 import { API_KEY, BASE_URL, PICTURE_URL } from '../../constants/constants';
 
 import cred from '../../credits.json';
-import { MOVIE_ROUTE } from '../../routes';
 
 export default function Movie() {
   const [videos, setVideos] = useState();
   const [similar, setSimilar] = useState();
   const [details, setDetails] = useState();
-  const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
@@ -104,32 +100,7 @@ export default function Movie() {
         </div>
       </div>
       {/* related movies */}
-      <div className="lg:mx-12 md:mx-8 sm:mx-2 mx-3 my-6 mt-10">
-        <div className="mb-5 flex flex-col gap-2">
-          <h1 className="text-4xl text-white">RELATED</h1>
-          <div className="border-b-4 border-b-red-light w-20"></div>
-        </div>
-        <div className="flex overflow-x-scroll  mb-14  scrollbar-hide">
-          <LeftArrow />
-          <div className="flex gap-3">
-            {similar?.results?.map((x) => {
-              return (
-                <MovieCard
-                  key={x.id}
-                  name={x.name || x.original_title}
-                  date={x.first_air_date}
-                  image={x.poster_path}
-                  rate={x.vote_average}
-                  country={x.original_country || x.original_language.toUpperCase()}
-                  click={() => navigate(`${MOVIE_ROUTE}/${x.id}`)}
-                  media={x.media}
-                />
-              );
-            })}
-          </div>
-          <RightArrow />
-        </div>
-      </div>
+      <MainContainer title="related" data={similar?.results} />
     </div>
   );
 }

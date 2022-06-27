@@ -1,35 +1,55 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useQuery } from '@apollo/client';
 
-// import info from '../popular.json';
 import { PICTURE_URL } from '../../constants/constants';
 import Button from '../../components/Button';
-import MovieCard from '../../components/MovieCard';
-import LeftArrow from '../../components/LeftArrow';
-import RightArrow from '../../components/RightArrow';
+import MainContainer from '../../components/MainContainer';
 import { TV_ROUTE } from '../../routes';
-import { fetchPopulars } from '../../context/slices/tv/popularSlice';
-import { fetchTopRated } from '../../context/slices/tv/topRatedSlice';
-import { fetchOnAir } from '../../context/slices/tv/onAirSlice';
-import { fetchOnAirToday } from '../../context/slices/tv/airingTodaySlice';
+
+// gql
+import {
+  getOnAirTodayTv,
+  getTopRatedMovies,
+  getOnAirTv,
+  getTrendingTv,
+  getPopularMovies
+} from '../../gql/queries.js';
 
 export default function Shows() {
-  const populars = useSelector((state) => state.tvPopular?.list?.results);
-  const topRateds = useSelector((state) => state.tvTopRated?.list?.results);
-  const onAirs = useSelector((state) => state.onAir?.list?.results);
-  const airingToday = useSelector((state) => state.airingToday?.list?.results);
-
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchPopulars());
-    dispatch(fetchTopRated());
-    dispatch(fetchOnAir());
-    dispatch(fetchOnAirToday());
-  }, [dispatch]);
+  // now playing movie
+  const {
+    // loading: nowLoading,
+    // error: nowError,
+    data: airingTodayData
+  } = useQuery(getOnAirTodayTv('/tv/airing_today?api_key='));
+  // upcoming movies
+  const {
+    // error: upError,
+    // loading: upLoading
+    data: onAirsData
+  } = useQuery(getOnAirTv('/tv/on_the_air?api_key='));
+  // topRated movies
+  const {
+    // loading: topLoading,
+    // error: topError,
+    data: topData
+  } = useQuery(getTopRatedMovies('/tv/top_rated?api_key='));
+  // popular movies
+  const {
+    // loading: popLoading,
+    // error: popError,
+    data: popData
+  } = useQuery(getPopularMovies('/tv/popular?api_key='));
+  // popular movies
+  const {
+    // loading: trendingLoading,
+    // error: trendingError,
+    data: trendingData
+  } = useQuery(getTrendingTv('/trending/all/week?api_key='));
 
   return (
     <div className="bg-gray-dark2">
@@ -39,7 +59,7 @@ export default function Shows() {
         showStatus={false}
         infiniteLoop={true}
         showIndicators={false}>
-        {airingToday?.map((i) => {
+        {trendingData?.trendingTv?.results?.map((i) => {
           return (
             <div
               key={i.id}
@@ -96,115 +116,20 @@ export default function Shows() {
         })}
       </Carousel>
       {/* Featured Movies Shows */}
-      <div className="lg:mx-12 md:mx-8 mx-3  my-6 ">
-        <div className=" flex gap-5 mb-5">
-          <Button text="Featured" css="px-3 py-1 " />
-          <Button text="Movies" css="px-3 py-1  bg-dark border-dark" />
-          <Button text="Shows" css="px-3 py-1  bg-dark border-dark" />
-        </div>
-        <div className="flex overflow-x-scroll scroll  mb-14  scrollbar-hide " id="elem">
-          <LeftArrow />
-          <div className="flex gap-3 ">
-            {airingToday?.map((x) => {
-              return (
-                <MovieCard
-                  key={x.id}
-                  name={x.name || x.title}
-                  date={x.first_air_date}
-                  image={x.poster_path}
-                  rate={x.vote_average}
-                  country={x.origin_country}
-                  click={() => navigate(`${TV_ROUTE}/${x.id}`)}
-                  id={x.id}
-                  media={x.media}
-                />
-              );
-            })}
-          </div>
-          <RightArrow />
-        </div>
+      <div className=" flex gap-5 lg:mx-12 md:mx-8 mx-3  my-6 mb-5">
+        <Button text="Featured" css="px-3 py-1 " />
+        <Button text="Movies" css="px-3 py-1  bg-dark border-dark" />
+        <Button text="Shows" css="px-3 py-1  bg-dark border-dark" />
       </div>
+      <MainContainer title="" data={airingTodayData?.onAirToday?.results} type="tv" />
       {/* Popular Movies  */}
-      <div className="lg:mx-12 md:mx-8 mx-3  my-6 ">
-        <div className="mb-5 flex flex-col gap-2">
-          <h1 className="text-4xl text-white">POPULAR SHOWS</h1>
-          <div className="border-b-4 border-b-red-light w-20"></div>
-        </div>
-        <div className="flex overflow-x-scroll scroll  mb-14  scrollbar-hide " id="elem">
-          <LeftArrow />
-          <div className="flex gap-3">
-            {populars?.map((x) => {
-              return (
-                <MovieCard
-                  key={x.id}
-                  name={x.name}
-                  date={x.first_air_date}
-                  image={x.poster_path}
-                  rate={x.vote_average}
-                  country={x.origin_country}
-                  click={() => navigate(`${TV_ROUTE}/${x.id}`)}
-                  media={x.media}
-                />
-              );
-            })}
-          </div>
-          <RightArrow />
-        </div>
-      </div>
+      <MainContainer title="popular" data={popData?.popular?.results} type="tv" />
+
       {/* Trending Movies  */}
-      <div className="lg:mx-12 md:mx-8 mx-3  my-6 ">
-        <div className="mb-5 flex flex-col gap-2">
-          <h1 className="text-4xl text-white">ON AIR</h1>
-          <div className="border-b-4 border-b-red-light w-20"></div>
-        </div>
-        <div className="flex min-w-80 overflow-x-scroll scroll  mb-14  scrollbar-hide " id="elem">
-          <LeftArrow />
-          <div className="flex gap-3">
-            {onAirs?.map((x) => {
-              return (
-                <MovieCard
-                  key={x.id}
-                  name={x.name}
-                  date={x.first_air_date}
-                  image={x.poster_path}
-                  rate={x.vote_average}
-                  country={x.origin_country}
-                  click={() => navigate(`${TV_ROUTE}/${x.id}`)}
-                  media={x.media}
-                />
-              );
-            })}
-          </div>
-          <RightArrow />
-        </div>
-      </div>
+      <MainContainer title="on air" data={onAirsData?.onAir?.results} type="tv" />
+
       {/* TOP RATED For You Movies  */}
-      <div className="lg:mx-12 md:mx-8 mx-3 my-6 ">
-        <div className="mb-5 flex flex-col gap-2">
-          <h1 className="text-4xl text-white">TOP RATED</h1>
-          <div className="border-b-4 border-b-red-light w-20"></div>
-        </div>
-        <div className="flex overflow-x-scroll scroll  mb-14  scrollbar-hide " id="elem">
-          <LeftArrow />
-          <div className="flex gap-3">
-            {topRateds?.map((x) => {
-              return (
-                <MovieCard
-                  key={x.id}
-                  name={x.name || x.title}
-                  date={x.first_air_date}
-                  image={x.poster_path}
-                  rate={x.vote_average}
-                  country={x.origin_country}
-                  click={() => navigate(`${TV_ROUTE}/${x.id}`)}
-                  media={x.media}
-                />
-              );
-            })}
-          </div>
-          <RightArrow />
-        </div>
-      </div>
+      <MainContainer title="top rated" data={topData?.top_rated?.results} type="tv" />
     </div>
   );
 }

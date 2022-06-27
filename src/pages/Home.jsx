@@ -17,6 +17,7 @@ import {
   getTrendingMovies,
   getPopularMovies
 } from '../gql/queries.js';
+// import pulse from '../assets/images/pulse.svg'
 
 function Home() {
   const navigate = useNavigate();
@@ -62,7 +63,7 @@ function Home() {
         showStatus={false}
         infiniteLoop={true}
         showIndicators={false}>
-        {nowData?.now_playing?.results?.map((i) => {
+        {trendingData?.trending?.results?.map((i) => {
           return (
             <div
               key={i.id}
@@ -91,9 +92,8 @@ function Home() {
                     {i.first_air_date?.slice(0, 4) || i.release_date?.slice(0, 4)}
                   </span>
                   <span className="border px-1 py-0 text-xs ">{i.adult ? '18+' : '12+'}</span>
-                  <span className="border px-1 py-0 text-xs ">
-                    {i.original_language?.toUpperCase()}
-                  </span>
+                  <span className="border px-1 py-0 text-xs uppercase ">{i.original_language}</span>
+                  <span className="border px-1 py-0 text-xs uppercase ">{i.media_type}</span>
                   {i.original_country?.map((o) => {
                     return (
                       <span key={o} className="border px-1 py-0 text-sm font-bold">
@@ -103,7 +103,7 @@ function Home() {
                   })}
                 </p>
                 <p className="hidden md:block lg:block self-start text-left">
-                  {i.overview.slice(0, 156)}...
+                  {i.overview?.slice(0, 156)}...
                 </p>
                 <p className="flex gap-4 mt-6 min-w-96 ">
                   {' '}
@@ -132,7 +132,7 @@ function Home() {
         <Button text="Movies" css="px-3 py-1  bg-dark border-dark" />
         <Button text="Shows" css="px-3 py-1  bg-dark border-dark" />
       </div>
-      <MainContainer title="" data={trendingData?.trending?.results} />
+      <MainContainer title="" data={nowData?.now_playing?.results} />
 
       {/* Popular Movies  */}
       <MainContainer title="Popular" data={popData?.popular?.results} />
