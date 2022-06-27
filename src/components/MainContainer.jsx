@@ -33,6 +33,7 @@ export default function MiainContainer({ data, title }) {
                 click={() =>
                   navigate(`${item.media_type === 'tv' ? TV_ROUTE : MOVIE_ROUTE}/${item.id}`)
                 }
+                media={item.media_type}
               />
             );
           })}
