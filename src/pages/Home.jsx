@@ -2,12 +2,11 @@ import { Carousel } from 'react-responsive-carousel';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-// import info from '../popular.json';
 import { PICTURE_URL } from '../constants/constants';
+import { MOVIE_ROUTE, TV_ROUTE } from '../routes';
+
 import Button from '../components/Button';
 import MainContainer from '../components/MainContainer';
-
-import { MOVIE_ROUTE } from '../routes';
 
 // gql
 import {
@@ -17,7 +16,6 @@ import {
   getTrendingMovies,
   getPopularMovies
 } from '../gql/queries.js';
-// import pulse from '../assets/images/pulse.svg'
 
 function Home() {
   const navigate = useNavigate();
@@ -111,7 +109,9 @@ function Home() {
                     text="Play Now"
                     icon="play-circle-fill"
                     css="lg:px-5 px-2 py-2 lg:w-52 md:w-28 w-26 text-sm"
-                    click={() => navigate(`${MOVIE_ROUTE}/${i.id}`)}
+                    click={() =>
+                      navigate(`${i.media_type === 'tv' ? TV_ROUTE : MOVIE_ROUTE}/${i.id}`)
+                    }
                   />
                   <Button
                     text="My List"

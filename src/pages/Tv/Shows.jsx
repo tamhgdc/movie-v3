@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/client';
 import { PICTURE_URL } from '../../constants/constants';
 import Button from '../../components/Button';
 import MainContainer from '../../components/MainContainer';
-import { TV_ROUTE } from '../../routes';
+import { TV_ROUTE, MOVIE_ROUTE } from '../../routes';
 
 // gql
 import {
@@ -20,31 +20,31 @@ import {
 export default function Shows() {
   const navigate = useNavigate();
 
-  // now playing movie
+  // airing today tv
   const {
     // loading: nowLoading,
     // error: nowError,
     data: airingTodayData
   } = useQuery(getOnAirTodayTv('/tv/airing_today?api_key='));
-  // upcoming movies
+  // on air tv
   const {
     // error: upError,
     // loading: upLoading
     data: onAirsData
   } = useQuery(getOnAirTv('/tv/on_the_air?api_key='));
-  // topRated movies
+  // top rated tv/movie
   const {
     // loading: topLoading,
     // error: topError,
     data: topData
   } = useQuery(getTopRatedMovies('/tv/top_rated?api_key='));
-  // popular movies
+  // popular tv/movie
   const {
     // loading: popLoading,
     // error: popError,
     data: popData
   } = useQuery(getPopularMovies('/tv/popular?api_key='));
-  // popular movies
+  // trending tv/movie
   const {
     // loading: trendingLoading,
     // error: trendingError,
@@ -70,7 +70,7 @@ export default function Shows() {
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat'
               }}
-              className=" lg:h-full md:h-80 sm:h-80 h-80 sm:px-10 lg:px-12 md:px-8 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end">
+              className="xl:h-[80vh] lg:h-full md:h-80 sm:h-80  sm:px-10 lg:px-12 md:px-8 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end">
               {/* details */}
               <div className="text-white order-1 lg:order-none  self-center p-2 flex flex-col gap-1 bg-gray-800 bg-opacity-0">
                 <h1 className="text-3xl self-start">{i.name || i.original_name || i.title}</h1>
@@ -101,7 +101,9 @@ export default function Shows() {
                     text="Play Now"
                     icon="play-circle-fill"
                     css="lg:px-5 px-2 py-2 lg:w-52 md:w-28 w-26 text-sm"
-                    click={() => navigate(`${TV_ROUTE}/${i.id}`)}
+                    click={() =>
+                      navigate(`${i.media_type === 'tv' ? TV_ROUTE : MOVIE_ROUTE}/${i.id}`)
+                    }
                   />
                   <Button
                     text="My List"
