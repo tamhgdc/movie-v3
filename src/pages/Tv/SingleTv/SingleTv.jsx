@@ -10,6 +10,7 @@ export default function SingleTv() {
   const [videos, setVideos] = useState();
   const [similar, setSimilar] = useState();
   const [details, setDetails] = useState();
+  // const [episodes, setepisodes] = useState();
   const params = useParams();
 
   useEffect(() => {
@@ -22,8 +23,11 @@ export default function SingleTv() {
     fetch(`${BASE_URL}/tv/${params.tvId}/similar?api_key=${API_KEY}`)
       .then((res) => res.json())
       .then((data) => setSimilar(data.results));
+    // fetch(`${BASE_URL}/tv/${params.tvId}/season/${details?.number_of_seasons}?api_key=${API_KEY}`)
+    //   .then((res) => res.json())
+    //   .then((data) => setepisodes(data));
   }, [params.tvId]);
-
+  // console.log(details);
   return (
     <div className="text-white">
       {/* video */}
@@ -100,6 +104,8 @@ export default function SingleTv() {
           </div>
         </div>
       </div>
+      {/* episodes */}
+      {/* <MainContainer title="Episodes" data={episodes?.episodes} type="tv" /> */}
       {/* related movies */}
       <MainContainer title="related" data={similar} type="tv" />
     </div>

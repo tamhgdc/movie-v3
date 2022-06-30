@@ -15,6 +15,7 @@ function MovieCard({ image, name, date, country, rate, click, media }) {
           src={PICTURE_URL + image}
           alt={name}
           effect="blur"
+          height="288px"
           delayMethod="debounce"
           placeholderSrc={puls}
         />
