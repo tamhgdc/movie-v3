@@ -8,7 +8,7 @@ import puls from '../assets/images/pulse.svg';
 function MovieCard({ image, name, date, country, rate, click, media }) {
   return (
     <div
-      className="flex h-96 w-48 flex-col gap-2 border-b-2 border-dark hover:border-red-light cursor-pointer justify-between pb-2 transition-all ease-in-out duration-500 min-w-80 "
+      className="flex h-96 w-48 flex-col gap-2 border-b-2 border-dark hover:border-red-light cursor-pointer justify-between pb-2 transition-all ease-in-out duration-500 min-w-80 relative"
       onClick={click}>
       <div className="h-72">
         <LazyLoadImage
@@ -16,7 +16,6 @@ function MovieCard({ image, name, date, country, rate, click, media }) {
           alt={name}
           effect="blur"
           height="288px"
-          delayMethod="debounce"
           placeholderSrc={puls}
         />
       </div>

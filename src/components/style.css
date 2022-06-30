@@ -1,13 +1,13 @@
 .cusScroll::-webkit-scrollbar {
   margin-top: 20px;
-  width: 5px;
-  height: 5px;
-  background: #343a40;
+  height: 8px;
+  background: #272829;
 }
+
 .cusScroll::-webkit-scrollbar-thumb {
   background: #ff0000;
-  -webkit-border-radius: 0;
-  margin-top: 5px;
+  -webkit-border-radius: 5px;
+  margin-top: 15px;
 }
 
 ::-webkit-scrollbar-corner {
@@ -15,7 +15,8 @@
 }
 .cusScroll {
   scrollbar-track-color: #ff0000;
-  scrollbar-width: 5px;
+  scrollbar-width: 10px;
   scrollbar-arrow-color: #ff0000;
   scrollbar-face-color: #ff0000;
+  
 }

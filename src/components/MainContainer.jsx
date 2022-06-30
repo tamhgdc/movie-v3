@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useRef} from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +11,13 @@ import { MOVIE_ROUTE, TV_ROUTE } from '../routes.js';
 
 export default function MainContainer({ data, title, type }) {
   const navigate = useNavigate();
+  const scrollRef=useRef();
+  const handleRightScroll=()=>{
+    scrollRef.current.scrollLeft += 300;
+  }
+  const handleLeftScroll=()=>{
+    scrollRef.current.scrollLeft -= 300;
+  }
   return (
     <div className="lg:mx-12 md:mx-8 sm:mx-2 mx-2  my-6 ">
       {title && (
@@ -19,8 +26,8 @@ export default function MainContainer({ data, title, type }) {
           <div className="border-b-4 border-b-red-light w-20"></div>
         </div>
       )}
-      <div className="flex overflow-x-scroll  mb-14 cusScroll ">
-        <LeftArrow />
+      <div  ref={scrollRef} className="flex overflow-x-scroll  mb-14 cusScroll snap-x scroll-smooth  " >
+        <LeftArrow click={handleLeftScroll} />
         <div className="flex gap-3 ">
           {data?.map((item) => {
             return (
@@ -37,7 +44,7 @@ export default function MainContainer({ data, title, type }) {
             );
           })}
         </div>
-        <RightArrow />
+        <RightArrow click={handleRightScroll} />
       </div>
     </div>
   );
