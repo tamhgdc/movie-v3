@@ -1,50 +1,42 @@
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+
 import logo from '../assets/images/logo.png';
 import { HOME_ROUTE, TV_ROUTE } from '../routes';
+import { getMovieGenres } from '../gql/queries.js';
+import Menu from '../components/Menu';
+import NAVLink from '../components/NavLink';
 
 function Navbar() {
+  const [active, setactive] = useState('/');
   const navigate = useNavigate();
-
+  const {
+    // loading: trendingLoading,
+    // error: trendingError,
+    data: genreData
+  } = useQuery(getMovieGenres('/genre/movie/list?api_key='), { fetchPolicy: 'network-only' });
   return (
     <div className="h-14 bg-gray-dark2 py-0 sticky top-0 z-20">
       <div className="lg:px-12 md:px-8 px-3 py-2 flex items-center justify-between ">
-        <div className="flex gap-5 items-center">
+        <div className="flex gap-5 items-center ">
           <Link to={HOME_ROUTE}>
             <img
               src={logo}
               alt="logo"
               className="h-10 rounded hidden lg:block md:block sm:block "
+              onClick={() => setactive('/')}
             />
           </Link>
-          {/* links list */}
-          <ul className="text-white text-sm font-bold flex lg:flex-row md:flex-row sm:flex-row flex-row  gap-3 items-center lg:flex md:flex sm:flex">
-            <li className=" px-2 ">
-              <Link
-                to={HOME_ROUTE}
-                className="hover:text-red-light ml-2 transition-all ease-in delay-50">
-                HOME
-              </Link>
+          <ul className="text-white text-sm font-bold flex lg:flex-row md:flex-row sm:flex-row flex-row  gap-3 items-center lg:flex md:flex sm:flex ">
+            <li className=" px-2 " onClick={() => setactive(HOME_ROUTE)}>
+              <NAVLink to={HOME_ROUTE} text="Movies" active={active} />
             </li>
-            <li className="border-l px-2">
-              <Link
-                to={HOME_ROUTE}
-                className="hover:text-red-light ml-2 transition-all ease-in delay-50">
-                GENRES
-              </Link>
+            <li className="border-l px-2" onClick={() => setactive(TV_ROUTE)}>
+              <NAVLink to={TV_ROUTE} text="tv shows" active={active} />
             </li>
-            <li className="border-l px-2">
-              <Link
-                to={TV_ROUTE}
-                className="hover:text-red-light ml-2 transition-all ease-in delay-50">
-                SHOWS
-              </Link>
-            </li>
-            <li className="border-l px-2">
-              <Link
-                to={HOME_ROUTE}
-                className="hover:text-red-light ml-2 transition-all ease-in delay-50">
-                PAGES
-              </Link>
+            <li className="border-l px-2 relative">
+              <Menu data={genreData?.genres?.genres} />
             </li>
           </ul>
         </div>
