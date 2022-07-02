@@ -35,7 +35,7 @@ function Navbar() {
             <li className="border-l px-2" onClick={() => setactive(TV_ROUTE)}>
               <NAVLink to={TV_ROUTE} text="tv shows" active={active} />
             </li>
-            <li className="border-l px-2 relative">
+            <li className="border-l px-3 relative ">
               <Menu data={genreData?.genres?.genres} />
             </li>
           </ul>

@@ -5,9 +5,9 @@ export default function Menu({ data }) {
   const [genre, setGenre] = useState('genres');
   const [show, setShow] = useState(false);
   return (
-    <div className="w-full">
+    <div className="min-w-72">
       <button
-        className=" text-white px-3  font-bold uppercase focus:text-red-light"
+        className=" text-white mx-3  font-bold uppercase focus:text-red-light"
         data-dropdown-toggle="menu"
         onClick={() => setShow((prev) => !prev)}>
         {genre}
