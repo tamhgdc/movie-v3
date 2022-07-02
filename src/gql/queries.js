@@ -132,7 +132,6 @@ export const getPopularTv = (id) => gql`
 
 // genres
 export const getMovieGenres = (id) => gql`
-  ${CORE_TV_FIELDS}
   query getGenre {
    genres
       @rest(
@@ -142,6 +141,45 @@ export const getMovieGenres = (id) => gql`
      genres{
      id 
      name
+     }
+    }
+  }
+`;
+// credits
+export const getTvCredits = (url) => gql`
+  query getTvCredits {
+  credits
+      @rest(
+        type: "tvCredits"
+        path: "${url}${API_KEY}"
+      ) {
+      id
+     cast{
+      id gender name known_for_department profile_path
+      cast_id character order
+     }
+      crew{
+      id gender name known_for_department profile_path
+      creddit_id job
+     }
+    }
+  }
+`;
+export const getMovieCredits = (url) => gql`
+  query getMovieCredits {
+  credits
+      @rest(
+        type: "movieCredits"
+        path: "${url}${API_KEY}"
+      ) {
+      id
+     cast{
+      id gender name known_for_department profile_path
+      cast_id character order
+     }
+     crew{
+      id gender name known_for_department profile_path
+      creddit_id job
      }
     }
   }

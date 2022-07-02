@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+
 import Button from '../../../components/Button';
 import MainContainer from '../../../components/MainContainer';
+import CastCard from '../../../components/CastCard';
 import { API_KEY, BASE_URL, PICTURE_URL } from '../../../constants/constants';
-
-import cred from '../../../credits.json';
+import { getTvCredits } from '../../../gql/queries.js';
 
 export default function SingleTv() {
   const [videos, setVideos] = useState();
   const [similar, setSimilar] = useState();
   const [details, setDetails] = useState();
-  // const [episodes, setepisodes] = useState();
   const params = useParams();
 
   useEffect(() => {
@@ -23,11 +24,18 @@ export default function SingleTv() {
     fetch(`${BASE_URL}/tv/${params.tvId}/similar?api_key=${API_KEY}`)
       .then((res) => res.json())
       .then((data) => setSimilar(data.results));
-    // fetch(`${BASE_URL}/tv/${params.tvId}/season/${details?.number_of_seasons}?api_key=${API_KEY}`)
-    //   .then((res) => res.json())
-    //   .then((data) => setepisodes(data));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [params.tvId]);
-  // console.log(details);
+
+  const { data } = useQuery(getTvCredits(`/tv/${params.tvId}/credits?api_key=`), {
+    fetchPolicy: 'network-only'
+  });
+
+  const producer = data?.credits?.crew?.filter(
+    (x) =>
+      x.job?.toLocaleLowerCase() === 'producer' ||
+      x.job?.toLocaleLowerCase() === 'executive producer'
+  );
   return (
     <div className="text-white">
       {/* video */}
@@ -66,7 +74,7 @@ export default function SingleTv() {
                 min
               </span>
             </span>
-            <span className="flex items-center gap-1 text-gray lg:text-lg text-sm">
+            <span className="flex items-center gap-1 text-gray lg:text-lg text-sm lg:mr-12 md:mr-8 sm:mr-4">
               <i className="ri-earth-line"></i>
               {details?.production_countries?.map((c) => c.name).join(', ')}
             </span>
@@ -74,25 +82,18 @@ export default function SingleTv() {
           <p className="w-4/5">{details?.overview}</p>
           {/* casts and crews */}
           <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1  mt-5">
-            <div className="">
-              <h1 className="text-3xl font-semibold">Director</h1>
-              <h2 className="font-semibold">
-                {cred.crew
-                  .filter((crew) => crew.job.toLocaleLowerCase() === 'director')
-                  .map((cr) => `${cr.name || cr.original_name}`)}
-              </h2>
-            </div>
-            <div className="col-span-2">
-              <h1 className="text-3xl font-semibold">Cast</h1>
-              <span className="flex flex-wrap gap-x-1 font-semibold w-5/6">
-                {cred.cast.slice(0, 10).map((cr) => {
-                  return <h2 key={cr.id}>{cr.name},</h2>;
-                })}
-              </span>
-            </div>
+            {producer?.length > 0 && (
+              <CastCard data={producer} title="producers" css="mb-5 col-span-3" />
+            )}
+
+            <CastCard
+              data={data?.credits?.cast}
+              title="casts"
+              css="col-span-3 mb-5 lg:mr-12 md:mr-8 sm:mr-4"
+            />
           </div>
           {/* buttons */}
-          <div className="flex justify-between mt-1 gap-1 flex-wrap ">
+          <div className="flex justify-between mt-1 gap-1 flex-wrap lg:mr-12 md:mr-8 sm:mr-4 ">
             <Button text="Play" icon="play-fill" css="lg:w-52 md:w-28 flex justify-center py-1" />
             <Button text="My List" icon="add-line" css="lg:w-52 md:w-28 flex justify-center py-1" />
             <Button

@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .cusScroll{
+   scrollbar-width:10px;
+  scrollbar-color: #ff0000 #272829;  
+  }
+  .cusScroll::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .cusScroll::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #343a40;
+  }
+
+  .cusScroll::-webkit-scrollbar-thumb {
+    background: #343a40;
+    border-radius: 100vh;
+    border: 1px solid #f6f7ed;
+  }
+
+  .cusScroll::-webkit-scrollbar-thumb:hover {
+    background: #ff0000;
+  }
+}

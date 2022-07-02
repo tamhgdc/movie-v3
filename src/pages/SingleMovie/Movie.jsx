@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+
 import Button from '../../components/Button';
 import MainContainer from '../../components/MainContainer';
+import CastCard from '../../components/CastCard';
 import { API_KEY, BASE_URL, PICTURE_URL } from '../../constants/constants';
-
-import cred from '../../credits.json';
+import { getMovieCredits } from '../../gql/queries.js';
 
 export default function Movie() {
   const [videos, setVideos] = useState();
   const [similar, setSimilar] = useState();
   const [details, setDetails] = useState();
+  // const [showCast, setshowCast] = useState(false);
   const params = useParams();
-
+  const { data } = useQuery(getMovieCredits(`/movie/${params.movieId}/credits?api_key=`), {
+    fetchPolicy: 'network-only'
+  });
+  const producer = data?.credits?.crew?.filter(
+    (x) =>
+      x.job?.toLocaleLowerCase() === 'producer' ||
+      x.job?.toLocaleLowerCase() === 'executive producer'
+  );
   useEffect(() => {
     fetch(`${BASE_URL}/movie/${params.movieId}/videos?api_key=${API_KEY}`)
       .then((res) => res.json())
@@ -22,7 +32,9 @@ export default function Movie() {
     fetch(`${BASE_URL}/movie/${params.movieId}/similar?api_key=${API_KEY}`)
       .then((res) => res.json())
       .then((data) => setSimilar(data));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [params.movieId]);
+
   return (
     <div className="text-white">
       {/* video */}
@@ -33,6 +45,7 @@ export default function Movie() {
           allowFullScreen
           className=" w-full lg:px-24 md:px-16 sm:px-2 lg:h-[90vh] md:h-96 sm:h-72 h-60"
           poster={`${PICTURE_URL}/x6FsYvt33846IQnDSFxla9j0RX8.jpg`}
+          loading="lazy"
         />
       </div>
       {/* End video */}
@@ -41,6 +54,7 @@ export default function Movie() {
           <img
             src={`${PICTURE_URL}${details?.poster_path}`}
             className="h-80 lg:w-72 md:w-72 w-full object-cover object-top"
+            loading="lazy"
           />
         </div>
         <div className="w-full flex flex-col lg:flex-col md:flex-col sm:flex-col justify-between h-full">
@@ -69,32 +83,17 @@ export default function Movie() {
           <p className="w-4/5">{details?.overview}</p>
           {/* casts and crews */}
           <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1  mt-5">
-            <div className="mb-5">
-              <h1 className="text-3xl font-semibold">Director</h1>
-              <h2 className="font-semibold">
-                {cred.crew
-                  .filter((crew) => crew.job.toLocaleLowerCase() === 'director')
-                  .map((cr) => `${cr.name || cr.original_name}`)}
-              </h2>
-            </div>
-            <div className="col-span-2 mb-5">
-              <h1 className="text-3xl font-semibold">Cast</h1>
-              <span className="flex flex-wrap gap-x-1 font-semibold w-5/6">
-                {cred.cast.slice(0, 10).map((cr) => {
-                  return <h2 key={cr.id}>{cr.name || cr.original_name},</h2>;
-                })}
-              </span>
-            </div>
+            <CastCard data={producer} title="producers" css="mb-5 col-span-3" />
+            <CastCard
+              data={data?.credits?.cast}
+              title="casts"
+              css="col-span-3 mb-5 lg:mr-12 md:mr-8 sm:mr-4"
+            />
           </div>
           {/* buttons */}
           <div className="flex  mt-1 gap-1 flex-wrap">
             <Button text="Play" icon="play-fill" css="lg:w-52 md:w-24 flex justify-center py-1" />
             <Button text="My List" icon="add-line" css="lg:w-52 md:w-24 flex justify-center py-1" />
-            <Button
-              text="Trailer"
-              icon="movie-2-line"
-              css="lg:w-52 md:w-24 flex justify-center py-1"
-            />
             <Button text="Share" icon="share-fill" css="lg:w-52 md:w-24 flex justify-center py-1" />
           </div>
         </div>
