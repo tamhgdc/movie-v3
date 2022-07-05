@@ -58,7 +58,9 @@ export default function SingleTv() {
   return (
     <div className="text-light">
       {/* video */}
-      <VideoModal videos={videos?.results[0]} click={() => handleClick} id="modal" show={show} />
+      {videos?.results?.length > 0 && (
+        <VideoModal videos={videos?.results[0]} click={() => handleClick} id="modal" show={show} />
+      )}
       {/* End video */}
       <div
         style={{

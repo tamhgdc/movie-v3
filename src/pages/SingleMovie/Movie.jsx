@@ -54,7 +54,9 @@ export default function Movie() {
   return (
     <div className="text-gray relative">
       {/* video */}
-      <VideoModal videos={videos?.results[0]} click={() => handleClick} id="mModal" show={show} />
+      {videos?.results?.length > 0 && (
+        <VideoModal videos={videos?.results[0]} click={() => handleClick} id="mModal" show={show} />
+      )}
       <div
         style={{
           backgroundImage: `url(${PICTURE_URL}${details?.backdrop_path})` || { svg },
