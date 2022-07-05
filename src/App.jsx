@@ -15,7 +15,7 @@ function App() {
   let url = useLocation();
 
   return (
-    <div className="bg-gray-dark2">
+    <div className="bg-dark">
       <Navbar />
       <Routes>
         <Route path={HOME_ROUTE} element={<Home />} />

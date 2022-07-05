@@ -5,14 +5,20 @@ import { useQuery } from '@apollo/client';
 import Button from '../../../components/Button';
 import MainContainer from '../../../components/MainContainer';
 import CastCard from '../../../components/CastCard';
+import VideoModal from '../../../components/VideoModal';
+
 import { API_KEY, BASE_URL, PICTURE_URL } from '../../../constants/constants';
 import { getTvCredits } from '../../../gql/queries.js';
+import svg from '../../../assets/images/pulse.svg';
 
 export default function SingleTv() {
   const [videos, setVideos] = useState();
   const [similar, setSimilar] = useState();
   const [details, setDetails] = useState();
+  const [show, setShow] = useState(false);
+
   const params = useParams();
+  // const tvModalRef = useRef(null);
 
   useEffect(() => {
     fetch(`${BASE_URL}/tv/${params.tvId}/videos?api_key=${API_KEY}`)
@@ -36,79 +42,92 @@ export default function SingleTv() {
       x.job?.toLocaleLowerCase() === 'producer' ||
       x.job?.toLocaleLowerCase() === 'executive producer'
   );
+
+  const el = document.getElementById('modal');
+  const handleClick = (e) => {
+    if (el !== e.currentTarget) {
+      setShow(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('click', handleClick, true);
+    return () => {
+      document.removeEventListener('click', handleClick, true);
+    };
+  }, [show]);
   return (
-    <div className="text-white">
+    <div className="text-light">
       {/* video */}
-      <div className="lg:h-screen md:h-96 sm:h-80 h-60">
-        <iframe
-          src={`https://www.youtube.com/embed/${videos?.results[0]?.key}?autoplay=1`}
-          frameBorder="0"
-          allowFullScreen
-          className=" w-full lg:px-12 md:px-8 sm:px-2 lg:h-[90vh] md:h-96 sm:h-72 h-60"
-          poster={`${PICTURE_URL}/x6FsYvt33846IQnDSFxla9j0RX8.jpg`}
+      <VideoModal videos={videos?.results[0]} click={() => handleClick} id="modal" show={show} />
+      {/* End video */}
+      <div
+        style={{
+          backgroundImage: `url(${PICTURE_URL}${details?.backdrop_path})` || { svg },
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundImageRepeat: 'no-repeat',
+          load: 'eager'
+        }}
+        className="lg:h-[calc(100vh-10vh)]   w-full flex flex-col lg:justify-center md:justify-end justify-end"
+        loading="eager">
+        <div className="lg:px-12 md:px-8 sm:px-4 px-4 py-10 flex flex-col lg:items-center md:items-center items-center sm:items-center gap-10 lg:flex-row sm:flex-col md:flex-row lg:justify-start">
+          <div className="flex flex-col justify-between place-self-center self-center h-full  p-5 lg:w-[500px]  w-96  bg-opacity-80 lg:ml-5 bg-dark rounded-lg">
+            <h1 className="text-xl lg:text-4xl md:text-2xl ">
+              {details?.original_title || details?.name} ({details?.first_air_date?.slice(0, 4)})
+            </h1>
+            <div className="flex flex-wrap justify-between w-full my-5 flex-col lg:flex-row">
+              <span className="flex items-center gap-1 text-gray lg:text-lg text-sm">
+                <span className="flex items-center gap-1 text-primsary  mr-5">
+                  <i className="ri-user-fill"></i>
+                  {details?.adult ? '18+' : '12+'}
+                </span>
+                <i className="ri-time-line"></i>
+                {Math.floor(details?.runtime / 60)}hr {details?.runtime % 60}min
+              </span>
+
+              <span className="flex items-center gap-1 text-gray lg:text-lg text-sm ">
+                <i className="ri-user-smile-line"></i>
+                {details?.genres.map((g) => g.name).join(', ')}
+              </span>
+              <span className="flex items-center gap-1 text-gray lg:text-lg text-sm">
+                <i className="ri-earth-line"></i>
+                {details?.production_countries.map((c) => c.name).join(', ')}
+              </span>
+            </div>
+            <p className="w-full">{details?.overview}</p>
+            {/* buttons */}
+            <div className="flex  mt-1 gap-1 w-full place-self-center ">
+              <Button
+                text="Trailer"
+                icon="play-fill"
+                css="lg:w-36 md:w-24 w-24 flex justify-center py-1 md:text-md  text-sm"
+                click={() => setShow(true)}
+              />
+              <Button
+                text="My List"
+                icon="add-line"
+                css="lg:w-36 md:w-24 w-24 flex justify-center py-1 md:text-md  text-sm"
+              />
+              <Button
+                text="Share"
+                icon="share-fill"
+                css="lg:w-36 md:w-24 w-24 flex justify-center py-1 md:text-md  text-sm"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* casts and crews */}
+      <div className="grid lg:grid-cols-6 md:grid-cols-2 sm:grid-cols-1 grid-cols-1  mt-5 lg:px-12 md:px-8 sm:px-4 px-4">
+        <CastCard data={producer?.slice(0, 1)} title="producer" css="mb-5 col-span-1" />
+        <CastCard
+          data={data?.credits?.cast}
+          title="casts"
+          css="col-span-5 mb-5 lg:mr-12 md:mr-8 sm:mr-4 w-full"
         />
       </div>
-      {/* End video */}
-      <div className="lg:px-12 md:px-8 sm:px-4 px-3 py-10 flex flex-col lg:items-start md:items-start items-center sm:items-center gap-x-10 lg:flex-row sm:flex-col md:flex-row ">
-        <div className="lg:h-96 h-80 sm:h-90  py-2 sm:hidden lg:block md:block">
-          <img
-            src={`${PICTURE_URL}${details?.poster_path}`}
-            className="h-80 lg:w-72 md:w-72 w-full object-cover object-top"
-          />
-        </div>
-        <div className="w-full flex flex-col lg:flex-col md:flex-col sm:flex-col justify-between h-full">
-          <h1 className="text-xl lg:text-5xl md:text-2xl mt-5">
-            {details?.original_name || details?.name} ({details?.last_air_date.slice(0, 4)})
-          </h1>
-          <div className="flex flex-wrap justify-between w-full my-5 flex-col lg:flex-row">
-            <span className="flex items-center gap-1 text-gray lg:text-lg text-sm">
-              <span className="flex items-center gap-1 text-gray text-lg">
-                <i className="ri-user-fill"></i>
-                {details?.adult ? '18+' : '12+'}
-              </span>
-              <i className="ri-user-smile-line"></i>
-              {details?.genres?.map((g) => g.name).join(', ')} 💠
-              <span className="flex items-center gap-1 text-gray lg:text-lg text-sm">
-                {Math.floor(details?.episode_run_time[0] / 60)}hr{' '}
-                {details?.episode_run_time[0] % 60}
-                min
-              </span>
-            </span>
-            <span className="flex items-center gap-1 text-gray lg:text-lg text-sm lg:mr-12 md:mr-8 sm:mr-4">
-              <i className="ri-earth-line"></i>
-              {details?.production_countries?.map((c) => c.name).join(', ')}
-            </span>
-          </div>
-          <p className="w-4/5">{details?.overview}</p>
-          {/* casts and crews */}
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1  mt-5">
-            {producer?.length > 0 && (
-              <CastCard data={producer} title="producers" css="mb-5 col-span-3" />
-            )}
-
-            <CastCard
-              data={data?.credits?.cast}
-              title="casts"
-              css="col-span-3 mb-5 lg:mr-12 md:mr-8 sm:mr-4"
-            />
-          </div>
-          {/* buttons */}
-          <div className="flex justify-between mt-1 gap-1 flex-wrap lg:mr-12 md:mr-8 sm:mr-4 ">
-            <Button text="Play" icon="play-fill" css="lg:w-52 md:w-28 flex justify-center py-1" />
-            <Button text="My List" icon="add-line" css="lg:w-52 md:w-28 flex justify-center py-1" />
-            <Button
-              text="Trailer"
-              icon="movie-2-line"
-              css="lg:w-52 md:w-28 flex justify-center py-1"
-            />
-            <Button text="Share" icon="share-fill" css="lg:w-52 md:w-28 flex justify-center py-1" />
-          </div>
-        </div>
-      </div>
-      {/* episodes */}
-      {/* <MainContainer title="Episodes" data={episodes?.episodes} type="tv" /> */}
       {/* related movies */}
-      <MainContainer title="related" data={similar} type="tv" />
+      <MainContainer title="related" data={similar} />
     </div>
   );
 }

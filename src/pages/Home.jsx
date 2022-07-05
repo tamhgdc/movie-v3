@@ -46,9 +46,9 @@ function Home() {
   } = useQuery(getTrending('/trending/all/week?api_key='), { fetchPolicy: 'network-only' });
 
   return (
-    <div className="bg-gray-dark2">
-      {nowLoading && <h1 className="text-5xl text-white">{nowLoading}</h1>}
-      {nowError && <h1 className="text-5xl text-white ">{nowError}</h1>}
+    <div className="bg-dark">
+      {nowLoading && <h1 className="text-5xl text-light">{nowLoading}</h1>}
+      {nowError && <h1 className="text-5xl text-light ">{nowError}</h1>}
       {/* carousel */}
       <CarouselSlider data={trendingData?.trending?.results} />
       {/* Featured Movies Shows */}
