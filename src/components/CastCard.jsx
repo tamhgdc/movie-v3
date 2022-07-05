@@ -7,7 +7,7 @@ export default function CastCard({ data, title, css }) {
   return (
     <>
       <div className={`${css} `}>
-        <h1 className="text-3xl font-semibold capitalize">{title}</h1>
+        <h1 className="text-3xl font-normal capitalize">{title}</h1>
         <div className="flex overflow-auto  cusScroll  mt-4">
           <div className="flex gap-1 font-semibold ">
             {data?.map((cr) => (
@@ -21,7 +21,7 @@ export default function CastCard({ data, title, css }) {
                   backgroundPosition: 'center'
                 }}
                 loading="lazy">
-                <span className="text-[10px] text-white bg-gray absolute bottom-0 w-full p-0.5 rounded-sm font-bold">
+                <span className="text-[10px] text-gray bg-dark absolute bottom-0 w-full p-0.5 rounded-b-sm font-bold">
                   {cr.name}
                 </span>
               </div>

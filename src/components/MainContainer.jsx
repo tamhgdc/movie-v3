@@ -22,8 +22,8 @@ export default function MainContainer({ data, title, type }) {
     <div className="lg:mx-12 md:mx-8 sm:mx-2 mx-2  my-6 ">
       {title && (
         <div className="mb-5 flex flex-col gap-2">
-          <h1 className="text-4xl text-white uppercase">{title}</h1>
-          <div className="border-b-4 border-b-red-light w-20"></div>
+          <h1 className="text-4xl text-light uppercase">{title}</h1>
+          <div className="border-b-4 border-b-primary w-20"></div>
         </div>
       )}
       <div
