@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // local import
 import Footer from './layouts/Footer';
+// import Navbar from './layouts/Navbar';
 import Navbar from './layouts/Navbar';
 import Home from './pages/Home';
 import SingIn from './pages/SignIn/SingIn';
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <div className="bg-dark">
+      {/* <Navbar /> */}
       <Navbar />
       <Routes>
         <Route path={HOME_ROUTE} element={<Home />} />

@@ -6,12 +6,12 @@ module.exports = {
       info: '#0353A4',
       warning: '#ffc107',
       danger: '#dc3545',
-      light: '#f3f3f3',
+      light: '#f3e9d2',
       // ---color palette ---//
-      gray: '#979DAC',
-      primary: '#9D0208',
-      secondary: '#DC2F02',
-      dark: '#001233'
+      gray: '#e5e6e4',
+      primary: '#5C5470',
+      secondary: '#508991',
+      dark: '#2A2438'
     },
     extend: {}
   },

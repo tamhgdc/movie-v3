@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-// import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { PICTURE_URL } from '../constants/constants';
@@ -11,13 +10,6 @@ function MovieCard({ image, name, date, country, rate, click, media }) {
       className="flex h-96 w-48 flex-col gap-2 border-b-2 border-dark hover:border-primary cursor-pointer justify-between pb-2 transition-all ease-in-out duration-500 min-w-80 relative"
       onClick={click}>
       <div className="h-72">
-        {/* <LazyLoadImage
-          src={PICTURE_URL + image}
-          alt={name}
-          effect="blur"
-          height="288px"
-          placeholderSrc={puls}
-        /> */}
         <img
           src={PICTURE_URL + image}
           alt={name}
@@ -31,7 +23,7 @@ function MovieCard({ image, name, date, country, rate, click, media }) {
         <span>{date?.slice(0, 4)}</span>
         <span className="text-yellow-400 fill-current">
           {Array.from({ length: parseInt(rate / 2) }, (_, i) => i + 1).map((r) => {
-            return <i key={r} className="ri-star-s-fill text-yellow"></i>;
+            return <i key={r} className="ri-star-s-fill text-warning"></i>;
           })}
         </span>
         <span className="border px-0.5 text-xs flex flex-col justify-center uppercase">
