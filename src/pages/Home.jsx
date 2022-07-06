@@ -19,31 +19,31 @@ function Home() {
     loading: nowLoading,
     error: nowError,
     data: nowData
-  } = useQuery(getNowPlayingMovies('/movie/now_playing?api_key='), { fetchPolicy: 'network-only' });
+  } = useQuery(getNowPlayingMovies('/movie/now_playing?api_key='));
   // upcoming movies
   const {
     data: upcomingData
     // error: upError,
     // loading: upLoading
-  } = useQuery(getUpcomingMovies('/movie/upcoming?api_key='), { fetchPolicy: 'network-only' });
+  } = useQuery(getUpcomingMovies('/movie/upcoming?api_key='));
   // topRated movies
   const {
     // loading: topLoading,
     // error: topError,
     data: topData
-  } = useQuery(getTopRatedMovies('/movie/top_rated?api_key='), { fetchPolicy: 'network-only' });
+  } = useQuery(getTopRatedMovies('/movie/top_rated?api_key='));
   // popular movies
   const {
     // loading: popLoading,
     // error: popError,
     data: popData
-  } = useQuery(getPopularMovies('/movie/popular?api_key='), { fetchPolicy: 'network-only' });
+  } = useQuery(getPopularMovies('/movie/popular?api_key='));
   // popular movies
   const {
     // loading: trendingLoading,
     // error: trendingError,
     data: trendingData
-  } = useQuery(getTrending('/trending/all/week?api_key='), { fetchPolicy: 'network-only' });
+  } = useQuery(getTrending('/trending/all/week?api_key='));
 
   return (
     <div className="bg-dark">

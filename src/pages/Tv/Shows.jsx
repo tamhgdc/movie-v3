@@ -19,31 +19,31 @@ export default function Shows() {
     // loading: nowLoading,
     // error: nowError,
     data: airingTodayData
-  } = useQuery(getOnAirTodayTv('/tv/airing_today?api_key='), { fetchPolicy: 'network-only' });
+  } = useQuery(getOnAirTodayTv('/tv/airing_today?api_key='));
   // on air tv
   const {
     // error: upError,
     // loading: upLoading
     data: onAirsData
-  } = useQuery(getOnAirTv('/tv/on_the_air?api_key='), { fetchPolicy: 'network-only' });
+  } = useQuery(getOnAirTv('/tv/on_the_air?api_key='));
   // top rated tv/movie
   const {
     // loading: topLoading,
     // error: topError,
     data: topData
-  } = useQuery(getTopRatedTv('/tv/top_rated?api_key='), { fetchPolicy: 'network-only' });
+  } = useQuery(getTopRatedTv('/tv/top_rated?api_key='));
   // popular tv/movie
   const {
     // loading: popLoading,
     // error: popError,
     data: popData
-  } = useQuery(getPopularTv('/tv/popular?api_key='), { fetchPolicy: 'network-only' });
+  } = useQuery(getPopularTv('/tv/popular?api_key='));
   // trending tv/movie
   const {
     // loading: trendingLoading,
     // error: trendingError,
     data: trendingData
-  } = useQuery(getTrending('/trending/all/week?api_key='), { fetchPolicy: 'network-only' });
+  } = useQuery(getTrending('/trending/all/week?api_key='));
 
   return (
     <div className="bg-gray-dark2">

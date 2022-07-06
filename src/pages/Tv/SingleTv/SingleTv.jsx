@@ -77,22 +77,30 @@ export default function SingleTv() {
             <h1 className="text-xl lg:text-4xl md:text-2xl ">
               {details?.original_title || details?.name} ({details?.first_air_date?.slice(0, 4)})
             </h1>
-            <div className="flex flex-wrap justify-between w-full my-5 flex-col lg:flex-row">
-              <span className="flex items-center gap-1 text-gray lg:text-lg text-sm">
-                <span className="flex items-center gap-1 text-primsary  mr-5">
-                  <i className="ri-user-fill"></i>
+            <div className="flex flex-wrap gap-4  w-full my-5 flex-col lg:flex-row text-sm">
+              <span className="flex items-center gap-1 text-gray ">
+                <span className="flex items-center gap-1 text-gray  ">
+                  <i className="ri-user-fill text-warning"></i>
                   {details?.adult ? '18+' : '12+'}
                 </span>
-                <i className="ri-time-line"></i>
-                {Math.floor(details?.runtime / 60)}hr {details?.runtime % 60}min
+                {details?.runtime && (
+                  <span>
+                    <i className="ri-time-line"></i>
+                    {Math.floor(details?.runtime / 60)}hr {details?.runtime % 60}min
+                  </span>
+                )}
               </span>
 
-              <span className="flex items-center gap-1 text-gray lg:text-lg text-sm ">
-                <i className="ri-user-smile-line"></i>
-                {details?.genres.map((g) => g.name).join(', ')}
+              <span className="flex items-center gap-1 text-gray text-xs  ">
+                <i className="ri-user-smile-line text-warning"></i>
+                {details?.genres.map((g) => (
+                  <span key={g.id} className="border rounded-sm px-2 border-secondary">
+                    {g.name}
+                  </span>
+                ))}
               </span>
-              <span className="flex items-center gap-1 text-gray lg:text-lg text-sm">
-                <i className="ri-earth-line"></i>
+              <span className="flex items-center gap-1 text-gray  text-sm">
+                <i className="ri-earth-line text-warning"></i>
                 {details?.production_countries.map((c) => c.name).join(', ')}
               </span>
             </div>
