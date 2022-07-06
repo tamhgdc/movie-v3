@@ -26,28 +26,30 @@ export default function MainContainer({ data, title, type }) {
           <div className="border-b-4 border-b-primary w-20"></div>
         </div>
       )}
-      <div
-        ref={scrollRef}
-        className="flex overflow-x-scroll  mb-14 cusScroll snap-x scroll-smooth  ">
-        <LeftArrow click={handleLeftScroll} />
-        <div className="flex gap-3 ">
-          {data?.map((item) => {
-            return (
-              <MovieCard
-                key={item.id}
-                name={item.name || item.original_title}
-                date={item.first_air_date || item.release_date}
-                image={item.poster_path || item.still_path}
-                rate={item.vote_average}
-                country={item.original_country || item.original_language}
-                click={() => navigate(`${type === 'tv' ? TV_ROUTE : MOVIE_ROUTE}/${item.id}`)}
-                media={item.media_type}
-              />
-            );
-          })}
+      {data?.length > 0 && (
+        <div
+          ref={scrollRef}
+          className="flex overflow-x-scroll  mb-14 cusScroll snap-x scroll-smooth  ">
+          <LeftArrow click={handleLeftScroll} />
+          <div className="flex gap-3 ">
+            {data?.map((item) => {
+              return (
+                <MovieCard
+                  key={item.id}
+                  name={item.name || item.original_title}
+                  date={item.first_air_date || item.release_date}
+                  image={item.poster_path || item.still_path}
+                  rate={item.vote_average}
+                  country={item.original_country || item.original_language}
+                  click={() => navigate(`${type === 'tv' ? TV_ROUTE : MOVIE_ROUTE}/${item.id}`)}
+                  media={item.media_type}
+                />
+              );
+            })}
+          </div>
+          <RightArrow click={handleRightScroll} />
         </div>
-        <RightArrow click={handleRightScroll} />
-      </div>
+      )}
     </div>
   );
 }

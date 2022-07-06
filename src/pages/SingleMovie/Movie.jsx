@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
 import Button from '../../components/Button';
@@ -13,9 +13,10 @@ import svg from '../../assets/images/pulse.svg';
 export default function Movie() {
   const [videos, setVideos] = useState();
   const [similar, setSimilar] = useState();
-  const [details, setDetails] = useState();
+  const [details, setDetails] = useState({ error: false });
   const [show, setShow] = useState(false);
   const params = useParams();
+  const navigate = useNavigate();
 
   const { data } = useQuery(getMovieCredits(`/movie/${params.movieId}/credits?api_key=`), {
     fetchPolicy: 'network-only'
@@ -26,12 +27,18 @@ export default function Movie() {
       x.job?.toLocaleLowerCase() === 'executive producer'
   );
   useEffect(() => {
+    fetch(`${BASE_URL}/movie/${params.movieId}?api_key=${API_KEY}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Object.hasOwn(data, 'success')) {
+          setDetails({ error: true, ...data });
+        } else {
+          setDetails({ error: false, ...data });
+        }
+      });
     fetch(`${BASE_URL}/movie/${params.movieId}/videos?api_key=${API_KEY}`)
       .then((res) => res.json())
       .then((data) => setVideos(data));
-    fetch(`${BASE_URL}/movie/${params.movieId}?api_key=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => setDetails(data));
     fetch(`${BASE_URL}/movie/${params.movieId}/similar?api_key=${API_KEY}`)
       .then((res) => res.json())
       .then((data) => setSimilar(data));
@@ -51,10 +58,24 @@ export default function Movie() {
     };
   }, [show]);
 
+  if (details.error) {
+    setTimeout(() => {
+      if (details.error) {
+        navigate('/');
+      }
+    }, 2500);
+    return (
+      <div className="h-[90vh] text-3xl text-danger flex items-center justify-center">
+        Oops, something went wrong please check out later...
+      </div>
+    );
+  }
   return (
     <div className="text-gray relative">
       {/* video */}
-      <VideoModal videos={videos?.results[0]} click={() => handleClick} id="mModal" show={show} />
+      {videos?.results?.length > 0 && (
+        <VideoModal videos={videos?.results[0]} click={() => handleClick} id="mModal" show={show} />
+      )}
       <div
         style={{
           backgroundImage: `url(${PICTURE_URL}${details?.backdrop_path})` || { svg },
@@ -69,23 +90,31 @@ export default function Movie() {
             <h1 className="text-xl lg:text-4xl md:text-2xl ">
               {details?.original_title} ({details?.release_date?.slice(0, 4)})
             </h1>
-            <div className="flex flex-wrap justify-between w-full my-5 flex-col lg:flex-row">
-              <span className="flex items-center gap-1 text-gray lg:text-lg text-sm">
-                <span className="flex items-center gap-1 text-primsary  mr-5">
-                  <i className="ri-user-fill"></i>
+            <div className="flex flex-wrap gap-4 w-full my-5 flex-col lg:flex-row">
+              <span className="flex items-center gap-4 text-gray  text-sm">
+                <span className="flex items-center  text-primsary ">
+                  <i className="ri-user-fill text-warning"></i>
                   {details?.adult ? '18+' : '12+'}
                 </span>
-                <i className="ri-time-line"></i>
-                {Math.floor(details?.runtime / 60)}hr {details?.runtime % 60}min
+                {details?.runtime && (
+                  <span className="flex items-center gap-1">
+                    <i className="ri-time-line text-warning"></i>
+                    {Math.floor(details?.runtime / 60)}hr {details?.runtime % 60}min
+                  </span>
+                )}
               </span>
 
-              <span className="flex items-center gap-1 text-gray lg:text-lg text-sm ">
-                <i className="ri-user-smile-line"></i>
-                {details?.genres.map((g) => g.name).join(', ')}
+              <span className="flex items-center gap-1 text-gray  text-sm ">
+                <i className="ri-user-smile-line text-warning"></i>
+                {details?.genres?.map((g) => (
+                  <span key={g.id} className="border rounded-sm px-2 text-xs border-secondary">
+                    {g.name}
+                  </span>
+                ))}
               </span>
-              <span className="flex items-center gap-1 text-gray lg:text-lg text-sm">
-                <i className="ri-earth-line"></i>
-                {details?.production_countries.map((c) => c.name).join(', ')}
+              <span className="flex items-center gap-1 text-gray  text-sm">
+                <i className="ri-earth-line text-warning "></i>
+                {details?.production_countries?.map((c) => c.name).join(', ')}
               </span>
             </div>
             <p className="w-full">{details?.overview}</p>
