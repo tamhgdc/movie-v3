@@ -2,11 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
 
+import { SEARCH_ROUTE } from '../routes.js';
+
 export default function DropDown({ data, click }) {
   const [genre, setGenre] = useState('genres');
   const [show, setShow] = useState(false);
   const navigate=useNavigate();
   const mref = useRef(null);
+
   const handleClick = () => {
     if (mref.current && !mref.current.contains(event.target)) {
       setShow(false);
@@ -63,7 +66,7 @@ export default function DropDown({ data, click }) {
                   setShow(false);
                   // TODO?? you can close menu on selection by click();
                   click();
-                  navigate(`/search/${g.name}`)
+                  navigate(`${SEARCH_ROUTE}/${g.name}`);
                 }}
                 className="text-gray-700 block px-3 py-1 text-sm hover:bg-secondary w-full text-left"
                 role="menuitem"
