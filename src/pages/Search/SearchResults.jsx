@@ -21,11 +21,13 @@ export default function SearchResults() {
       <h1 className="my-10 text-2xl">
         Search results for <span className="text-success">{params.query}</span>
       </h1>
-      <div className="grid grid-cols-4 gap-3 ">
+      <div className="grid grid-cols-4 gap-3  ">
         {/* left side */}
-        <div className="col-span-1 border rounded-sm p-5">leftside</div>
+        {/* TODO: complete left side now hidden*/}
+        <div className="col-span-1 border rounded-sm p-5 hidden">leftside</div>
         {/* right side */}
-        <div className="col-span-3  rounded-sm p-5 flex flex-col pb-0">
+        {/* TODO: change col-span-4 to col-span-3 */}
+        <div className="col-span-4  rounded-sm p-5 flex flex-col pb-0">
           <div className="flex flex-wrap gap-3">
             {result?.results?.map((res) => {
               return (
@@ -52,8 +54,8 @@ export default function SearchResults() {
               );
             })}
           </div>
-          {/* TODO: pagination functionality and effects */}
-          <div className="mt-5 border p-5 flex gap-3 justify-center items-center">
+          {/* TODO: pagination functionality and effects now hidden */}
+          <div className="mt-5 border p-5 flex gap-3 justify-center items-center hidden">
             <i className=" ri-arrow-left-s-line p-1 bg-primary h-7 w-7 flex items-center justify-center rounded-sm"></i>
             <span className="p-1 bg-secondary border-b-2 hover:border-primary border-dark h-7 w-7 flex items-center justify-center rounded-sm hover:cursor-pointer ">
               1
