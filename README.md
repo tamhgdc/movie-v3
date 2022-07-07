@@ -5,6 +5,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 #
 The [TMDB API](https://developers.themoviedb.org/3/getting-started/introduction) is used.
 
+#
+View [redux-version](https://redux-b--tmdb-movie-web.netlify.app)
+
+#
+View [graphql-version](https://tmdb-movie-web.netlify.app)
+
 ## Available Scripts
 
 In the project directory, you can run:
