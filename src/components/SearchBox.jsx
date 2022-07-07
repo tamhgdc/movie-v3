@@ -29,7 +29,7 @@ export default function SearchBox() {
         className="border border-primary lg:flex md:flex sm:hidden hidden items-center gap-1 rounded-sm ">
         <input
           type="text"
-          className="bg-primary outline-none px-2 py-0.5 focus:border-secondary border-primary border"
+          className="bg-primary outline-none px-2 py-0.5 focus:border-secondary border-primary border rounded-sm"
           placeholder="Search"
           value={term}
           onChange={() => handleChange()}
