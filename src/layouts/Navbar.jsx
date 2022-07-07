@@ -45,7 +45,7 @@ export default function Navbar() {
       <ul
         className={` ${
           menu ? 'absolute top-[50px] left-0 z-20 h-32 w-full m-0 flex flex-col ' : 'hidden'
-        }  gap-2 items-end lg:items-center pr-2 justify-center  capitalize bg-dark lg:flex md:flex md:items-center gap-2 `}
+        }  gap-2 items-end lg:items-center pr-2 justify-center  capitalize bg-dark lg:flex md:flex md:items-center gap-2`}
         ref={humburgerRef}>
         <li className="   border border-dark rounded-sm " onClick={() => closeMenu()}>
           <NavLink
@@ -68,6 +68,12 @@ export default function Navbar() {
         <li className="min-w-[7rem] rounded-sm relative">
           <DropDown data={genreData?.genres?.genres} click={closeMenu} />
         </li>
+        {/* TODO: show search and loginbtn in mobile size */}
+        {/* <li className="min-w-[7rem] rounded-sm relative">
+          <div className="lg:hidden md:hidden sm:block block top-0 z-50">
+            <SearchBox />
+          </div>
+        </li> */}
       </ul>
 
       <div className="absolute lg:right-12 md:right-8 right-3 flex items-center  gap-2 h-full">
