@@ -9,7 +9,7 @@ export default function SearchBox() {
   const handleSubmit = () => {
     event.preventDefault();
     navigate(`${SEARCH_ROUTE}/${term}`);
-    setTerm('');
+    // setTerm('');
   };
   return (
     <form
@@ -21,6 +21,7 @@ export default function SearchBox() {
         placeholder="Search"
         value={term}
         onChange={() => setTerm(event.target.value)}
+        required
       />
       <i
         className={`text-lg ${
