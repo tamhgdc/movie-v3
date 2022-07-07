@@ -85,7 +85,7 @@ export default function Navbar() {
         <NavLink to="/signin" className="lg:block md:block sm:hidden hidden">
           <Button
             text="Sign in"
-            css="px-3 hover:bg-secondary hover:text-dark hover:border-secondary mt-0 "
+            css="px-3 hover:bg-secondary hover:text-light hover:border-secondary mt-0 rounded-sm"
           />
         </NavLink>
       </div>
