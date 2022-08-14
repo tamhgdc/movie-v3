@@ -1,5 +1,13 @@
+## Home
 # A Movie website clone 
 ## Technologies used:
+ <img src='https://img.shields.io/static/v1?label=ReactJs&message=Go to&color=blue&style=for-the-badge&logo=react'  />
+ <img src='https://img.shields.io/static/v1?label=Redux Toolkit&message=Go to&color=blue&style=for-the-badge&logo=redux'  />
+ <img src='https://img.shields.io/static/v1?label=TailwindCSS&message=Go to&color=blue&style=for-the-badge&logo=tailwindcss'  />
+ <img src='https://img.shields.io/static/v1?label=React Router&message=Go to&color=blue&style=for-the-badge&logo=reactrouter'  />
+ <img src='https://img.shields.io/static/v1?label=TMDB API&message=Go to&color=blue&style=for-the-badge&logo=themoviedatabase&right?link=http://reactjs.org'  />
+#
+-
 - ReactJS       [ReactJS](https://reactjs.org/?target=_blank)
 - Redux         [Redux-Toolkit](https://redux-toolkit.js.org/?target_blank)
 - Tailwindcss   [Tailwindcss](https://tailwindcss.com/docs/installation/?target=_blank)
@@ -8,7 +16,6 @@
 # [Live Demo](https://redux-b--tmdb-movie-web.netlify.app/)
 ![image](https://user-images.githubusercontent.com/91832381/184542886-66f65fe1-a864-4b71-939a-5df0c51af29c.png)
 
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 #
@@ -16,6 +23,7 @@ The  is used.
 
 #
 View [redux-version](https://redux-b--tmdb-movie-web.netlify.app)
+
 
 #
 View [graphql-version](https://tmdb-movie-web.netlify.app)
@@ -36,3 +44,5 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 
 
+
+**[⬆ Back to Top](#home)**
