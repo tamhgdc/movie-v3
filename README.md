@@ -6,11 +6,11 @@
 
 ## Technologies used:
 
- <img src='https://img.shields.io/badge/React JS-20232A?style=for-the-badge&logo=react&logoColor=61DAFB'  />
- <img src='https://img.shields.io/badge/Redux Toolkit-593D88?style=for-the-badge&logo=redux&logoColor=white'  />
- <img src='https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=61DAFB'  />
- <img src='https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white'/>
- <img src='https://img.shields.io/badge/TMDB API-01B4E4?color=blue&style=for-the-badge&logo=themoviedatabase&logoColor=white'/>
+ [<img src='https://img.shields.io/badge/React JS-20232A?style=for-the-badge&logo=react&logoColor=61DAFB'  />](https://reactjs.org/)
+ [<img src='https://img.shields.io/badge/Redux Toolkit-593D88?style=for-the-badge&logo=redux&logoColor=white'  />](https://redux-toolkit.js.org/)
+ [<img src='https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=61DAFB'  />](https://tailwindcss.com/docs/installation)
+ [<img src='https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white'/>](https://reactrouter.com/docs/en/v6/getting-started/overview)
+ [<img src='https://img.shields.io/badge/TMDB API-01B4E4?color=blue&style=for-the-badge&logo=themoviedatabase&logoColor=white'/>](https://developers.themoviedb.org/3/)
  <img src='https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white'/>
   <img src='https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E'/>
  
