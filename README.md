@@ -1,32 +1,26 @@
 ## Home
-# A Movie website clone 
+
+<div align="centzer">
+<h1 >A Movie website clone </h1>
+
+
 ## Technologies used:
- <img src='https://img.shields.io/static/v1?label=ReactJs&message=Go to&color=blue&style=for-the-badge&logo=react'  />
- <img src='https://img.shields.io/static/v1?label=Redux Toolkit&message=Go to&color=blue&style=for-the-badge&logo=redux'  />
- <img src='https://img.shields.io/static/v1?label=TailwindCSS&message=Go to&color=blue&style=for-the-badge&logo=tailwindcss'  />
- <img src='https://img.shields.io/static/v1?label=React Router&message=Go to&color=blue&style=for-the-badge&logo=reactrouter'  />
- <a href='https://img.shields.io/static/v1?label=TMDB API&message=Go to&color=blue&style=for-the-badge&logo=themoviedatabase&right?link=http://reactjs.org'></a>
-#
--
-- ReactJS       [ReactJS](https://reactjs.org/?target=_blank)
-- Redux         [Redux-Toolkit](https://redux-toolkit.js.org/?target_blank)
-- Tailwindcss   [Tailwindcss](https://tailwindcss.com/docs/installation/?target=_blank)
-- React Router  [Rect-Router-Dom](https://reactrouter.com/docs/en/v6/getting-started/overview?target=_blank)
-- TMDB API      [TMDB API](https://developers.themoviedb.org/3/getting-started/introduction/?target=_blank)
+
+ <img src='https://img.shields.io/badge/React JS-20232A?style=for-the-badge&logo=react&logoColor=61DAFB'  />
+ <img src='https://img.shields.io/badge/Redux Toolkit-593D88?style=for-the-badge&logo=redux&logoColor=white'  />
+ <img src='https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=61DAFB'  />
+ <img src='https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white'/>
+ <img src='https://img.shields.io/badge/TMDB API-01B4E4?color=blue&style=for-the-badge&logo=themoviedatabase&logoColor=white'/>
+ <img src='https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white'/>
+  <img src='https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E'/>
+ 
+ </div>
+ 
 # [Live Demo](https://redux-b--tmdb-movie-web.netlify.app/)
+# [Live Demo ApolloClient](https://tmdb-movie-web.netlify.app/)
 ![image](https://user-images.githubusercontent.com/91832381/184542886-66f65fe1-a864-4b71-939a-5df0c51af29c.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-#
-The  is used.
-
-#
-View [redux-version](https://redux-b--tmdb-movie-web.netlify.app)
-
-
-#
-View [graphql-version](https://tmdb-movie-web.netlify.app)
+### This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## To run on your local machine:
 - ### clone this repo -> [repo](https://github.com/ZaminMirzad/movie-website-clone.git)
