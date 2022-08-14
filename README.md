@@ -5,7 +5,7 @@
  <img src='https://img.shields.io/static/v1?label=Redux Toolkit&message=Go to&color=blue&style=for-the-badge&logo=redux'  />
  <img src='https://img.shields.io/static/v1?label=TailwindCSS&message=Go to&color=blue&style=for-the-badge&logo=tailwindcss'  />
  <img src='https://img.shields.io/static/v1?label=React Router&message=Go to&color=blue&style=for-the-badge&logo=reactrouter'  />
- <img src='https://img.shields.io/static/v1?label=TMDB API&message=Go to&color=blue&style=for-the-badge&logo=themoviedatabase&right?link=http://reactjs.org'  />
+ <a href='https://img.shields.io/static/v1?label=TMDB API&message=Go to&color=blue&style=for-the-badge&logo=themoviedatabase&right?link=http://reactjs.org'></a>
 #
 -
 - ReactJS       [ReactJS](https://reactjs.org/?target=_blank)
